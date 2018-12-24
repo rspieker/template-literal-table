@@ -10,7 +10,7 @@
   "bugs": "https://github.com/rspieker/template-literal-table/issues",
   "repository": {
     "type": "git",
-    "url": "https: //github.com/rspieker/template-literal-table.git"
+    "url": "https://github.com/rspieker/template-literal-table.git"
   },
   "keywords": [
     "es6 template",
