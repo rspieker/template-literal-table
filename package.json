@@ -1,6 +1,6 @@
 {
   "name": "template-literal-table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tagged template literal mapping markdown style tables into objects",
   "main": "source/tag.js",
   "scripts": {
