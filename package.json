@@ -2,7 +2,7 @@
   "name": "template-literal-table",
   "version": "1.0.0",
   "description": "Tagged template literal mapping markdown style tables into objects",
-  "main": "source/table.js",
+  "main": "source/tag.js",
   "scripts": {
     "test": "./node_modules/.bin/lab -vclr"
   },
