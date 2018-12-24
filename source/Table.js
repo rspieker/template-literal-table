@@ -32,9 +32,11 @@ class Table {
 		return this.tokenized
 			.reduce((carry, component) => {
 				if (component === EOL) {
-					return carry.concat([[]]);
+					carry.push([]);
 				}
-				carry[carry.length - 1].push(component);
+				else {
+					carry[carry.length - 1].push(component);
+				}
 
 				return carry;
 			}, [[]])
@@ -45,8 +47,7 @@ class Table {
 		const [header, ...records] = this.components;
 
 		return records.map((list) => list
-			.reduce((carry, value, index) => ({
-				...carry,
+			.reduce((carry, value, index) => Object.assign(carry, {
 				[header[index]]: value instanceof Variable ? value.value : value,
 			}), {})
 		);
