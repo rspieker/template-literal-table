@@ -3,7 +3,7 @@ const Value = require('./Value.js');
 const Row = require('./Row.js');
 const Cell = require('./Cell.js');
 
-const { EOL, separator } = require('./symbols.js');
+const { EOL, separator } = require('./prepared.js');
 const storage = new WeakMap();
 
 class Table {

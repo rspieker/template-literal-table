@@ -1,6 +1,6 @@
 const Record = require('./Record.js');
 const Character = require('./Character.js');
-const { whitespace } = require('./symbols.js');
+const { whitespace } = require('./prepared.js');
 
 /**
  * Table cell representation
@@ -45,14 +45,11 @@ class Cell extends Record {
 		const merge =
 			items.filter((token) => token instanceof Character).length > 0;
 
-		if (items.length === 1) {
-			return items[0].value;
+		if (items.length <= 1) {
+			return items.length ? items[0].value : undefined;
 		}
 
-		return items.reduce(
-			(carry, token) => carry + token.value,
-			merge ? '' : undefined
-		);
+		return items.map((token) => token.value).join('');
 	}
 }
 

@@ -1,5 +1,5 @@
 const Value = require('./Value.js');
-const { EOL, separator, whitespace } = require('./symbols.js');
+const { EOL, separator, whitespace } = require('./prepared.js');
 
 class Character extends Value {
 	static from(value) {
