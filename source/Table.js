@@ -86,7 +86,8 @@ class Table {
 			}, [])
 			.map((row) =>
 				header.reduce(
-					(carry, key, index) => ({ ...carry, [key]: row[index] }),
+					(carry, key, index) =>
+						Object.assign(carry, { [key]: row[index] }),
 					{}
 				)
 			);
