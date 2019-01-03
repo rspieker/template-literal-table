@@ -1,38 +1,31 @@
-const { EOL, separator, divider } = require('./Symbols.js');
+const Value = require('./Value.js');
+const Character = require('./Character.js');
 
-class Tagged {
-	constructor(value) {
-		this.template = value;
-	}
+const storage = new WeakMap();
 
-	get value() {
-		return this.template;
-	}
+/**
+ * Object representing a tagged template string
+ *
+ * @class Tagged
+ * @extends {Value}
+ */
+class Tagged extends Value {
+	/**
+	 * Obtain the tokenized representation of the template string components
+	 *
+	 * @readonly
+	 * @memberof Tagged
+	 */
+	get tokenized() {
+		if (!storage.has(this)) {
+			const tokens = this.value
+				.split('')
+				.map((char) => Character.from(char));
 
-	tokenize() {
-		const { value } = this;
-
-		if (value.trim() === '|') {
-			return separator;
+			storage.set(this, tokens);
 		}
 
-		return value.split('')
-			.map((char) => char === '\n' ? EOL : char)
-			.map((char) => char === '|' ? separator : char)
-			.reduce((carry, char) => {
-				const prev = carry.length - 1;
-
-				if (typeof char === 'string' && typeof carry[prev] === 'string') {
-					carry[prev] += char;
-				}
-				else {
-					carry.push(char);
-				}
-
-				return carry;
-			}, [])
-			.map((value) => typeof value === 'string' ? value.trim() : value)
-			.map((value) => typeof value === 'string' && /^-{2,}$/.test(value) ? divider : value);
+		return storage.get(this);
 	}
 }
 
