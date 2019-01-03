@@ -64,6 +64,26 @@ describe('Table', () => {
 		expect(table[4]).to.equal({ letter: 'e', index: 5 });
 	});
 
+	it('stringifies cells', () => {
+		const table = tag`
+			letter        | index
+			a b           | 1
+			${'b'} c      | ${true} ${false}
+			c d           | ${false}
+			d ${'e'}      | ${true}
+			${'e'} ${'f'} | ${5} ${7}
+		`;
+
+		expect(table).to.be.array();
+		expect(table).to.have.length(5);
+
+		expect(table[0]).to.equal({ letter: 'a b', index: '1' });
+		expect(table[1]).to.equal({ letter: 'b c', index: 'true false' });
+		expect(table[2]).to.equal({ letter: 'c d', index: false });
+		expect(table[3]).to.equal({ letter: 'd e', index: true });
+		expect(table[4]).to.equal({ letter: 'e f', index: '5 7' });
+	});
+
 	it('ignores divider rows', () => {
 		const table = tag`
 			letter  | index
