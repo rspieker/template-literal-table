@@ -20,6 +20,9 @@
   ],
   "author": "Rogier Spieker <rogier+npm@konfirm.eu>",
   "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
   "devDependencies": {
     "@hapi/code": "^6.0.0",
     "@hapi/lab": "^20.2.1"
