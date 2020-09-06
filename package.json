@@ -24,7 +24,7 @@
     "node": ">=8"
   },
   "devDependencies": {
-    "@hapi/code": "^6.0.0",
-    "@hapi/lab": "^20.2.1"
+    "@hapi/code": "^8.0.2",
+    "@hapi/lab": "^23.0.0"
   }
 }
