@@ -1,23 +1,24 @@
-const Tagged = require('./Tagged.js');
-const Value = require('./Value.js');
-const Row = require('./Row.js');
-const Cell = require('./Cell.js');
+import { Tagged } from './Tagged';
+import { Value } from './Value';
+import { Character } from './Character';
+import { Row } from './Row';
+import { Cell } from './Cell';
 
-const { EOL, separator } = require('./prepared.js');
-const storage = new WeakMap();
+const EOL = Character.from('\n');
+const separator = Character.from('|');
 
-class Table {
+export class Table {
+	private readonly strings: Tagged[];
+	private readonly values: Value[];
 	/**
 	 * Creates an instance of Table.
 	 * @param    {array} strings
 	 * @param    {array} values
 	 * @memberof Table
 	 */
-	constructor(strings, ...values) {
-		storage.set(this, {
-			strings: strings.map((value) => Tagged.from(value)),
-			values: values.map((value) => Value.from(value))
-		});
+	constructor(strings: TemplateStringsArray, ...values: unknown[]) {
+		this.strings = strings.map((value) => Tagged.from(value));
+		this.values = values.map((value) => Value.from(value));
 	}
 
 	/**
@@ -26,13 +27,13 @@ class Table {
 	 * @readonly
 	 * @memberof Table
 	 */
-	get interleave() {
-		const { strings, values } = storage.get(this);
+	get interleave(): Value[] {
+		const { strings, values } = this;
 
 		return strings.reduce(
-			(carry, value, index) =>
+			(carry: Value[], { tokenized }: Tagged, index: number) =>
 				carry.concat(
-					value.tokenized,
+					tokenized,
 					values.length > index ? values[index] : []
 				),
 			[]
@@ -45,8 +46,8 @@ class Table {
 	 * @readonly
 	 * @memberof Table
 	 */
-	get rows() {
-		return this.interleave.reduce((carry, value) => {
+	get rows(): Row[] {
+		return this.interleave.reduce((carry: Row[], value: Value) => {
 			if (value === EOL) {
 				return carry.concat(new Row());
 			}
@@ -74,24 +75,21 @@ class Table {
 	 * @returns  {array}
 	 * @memberof Table
 	 */
-	records(...filters) {
+	records(...filters: ((value: unknown[]) => boolean)[]) {
 		const [header, ...rows] = this.rows.map((row) => row.compact());
 
 		return rows
 			.reduce((carry, row) => {
-				const preserve = filters.filter((call) => call(row));
-				const append = preserve.length === filters.length ? [row] : [];
+				const preserve = filters.every((call) => call(row));
 
-				return carry.concat(append);
+				return carry.concat(preserve ? [row] : []);
 			}, [])
 			.map((row) =>
 				header.reduce(
-					(carry, key, index) =>
-						Object.assign(carry, { [key]: row[index] }),
+					(carry: object, key, index) =>
+						({ ...carry, [key as string]: (row as unknown[])[index] }),
 					{}
 				)
 			);
 	}
 }
-
-module.exports = Table;
