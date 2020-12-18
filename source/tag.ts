@@ -26,7 +26,7 @@ function defined(row: unknown[]): boolean {
  * @param {*} args
  * @returns
  */
-export function tag(strings: TemplateStringsArray, ...args: unknown[]) {
+export function tag(strings: TemplateStringsArray, ...args: unknown[]): { [key: string]: unknown }[] {
 	return new Table(strings, ...args).records(divider, defined);
 }
 
@@ -36,7 +36,7 @@ export function tag(strings: TemplateStringsArray, ...args: unknown[]) {
  * @param {*} args
  * @returns
  */
-export function empty(strings: TemplateStringsArray, ...args: unknown[]) {
+export function empty(strings: TemplateStringsArray, ...args: unknown[]): { [key: string]: unknown }[] {
 	return new Table(strings, ...args).records(divider);
 };
 
