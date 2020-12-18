@@ -3,8 +3,8 @@ import { Table } from './Table';
 /**
  * filter divider rows
  *
- * @param   {array} row
- * @returns bool
+ * @param {unknown[]} row
+ * @returns {boolean}
  */
 function divider(row: unknown[]): boolean {
 	return row.some((cell) => !/^-{2,}$/.test(String(cell)));
@@ -13,8 +13,8 @@ function divider(row: unknown[]): boolean {
 /**
  * filter rows consisting of only undefined values
  *
- * @param   {array} row
- * @returns bool
+ * @param {unknown[]} row
+ * @returns {boolean}
  */
 function defined(row: unknown[]): boolean {
 	return row.some((cell) => typeof cell !== 'undefined');
@@ -23,8 +23,9 @@ function defined(row: unknown[]): boolean {
 /**
  * The main string literal template
  *
- * @param {*} args
- * @returns
+ * @export
+ * @param {TemplateStringsArray} strings
+ * @param {...unknown[]} args
  */
 export function tag(strings: TemplateStringsArray, ...args: unknown[]): { [key: string]: unknown }[] {
 	return new Table(strings, ...args).records(divider, defined);
@@ -33,8 +34,9 @@ export function tag(strings: TemplateStringsArray, ...args: unknown[]): { [key: 
 /**
  * The nested string literal template presering fully undefined records
  *
- * @param {*} args
- * @returns
+ * @export
+ * @param {TemplateStringsArray} strings
+ * @param {...unknown[]} args
  */
 export function empty(strings: TemplateStringsArray, ...args: unknown[]): { [key: string]: unknown }[] {
 	return new Table(strings, ...args).records(divider);
