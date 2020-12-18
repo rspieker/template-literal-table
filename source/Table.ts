@@ -77,15 +77,11 @@ export class Table {
 	 * @returns  {array}
 	 * @memberof Table
 	 */
-	records(...filters: ((value: unknown[]) => boolean)[]) {
+	records(...filters: ((value: unknown[]) => boolean)[]): { [key: string]: unknown }[] {
 		const [header, ...rows] = this.rows.map((row) => row.compact());
 
 		return rows
-			.reduce((carry, row) => {
-				const preserve = filters.every((call) => call(row));
-
-				return carry.concat(preserve ? [row] : []);
-			}, [])
+			.filter((row) => filters.every((call) => call(row)))
 			.map((row) =>
 				header.reduce(
 					(carry: object, key, index) =>
