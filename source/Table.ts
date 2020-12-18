@@ -4,18 +4,29 @@ import { Character } from './Character';
 import { Row } from './Row';
 import { Cell } from './Cell';
 
+//  EOL (End of Line) token
 const EOL = Character.from('\n');
+//  Cell separator token
 const separator = Character.from('|');
 
+/**
+ * Table
+ * Represent the table as a whole
+ *
+ * @export
+ * @class Table
+ */
 export class Table {
 	// template literals
 	private readonly strings: Literal[];
 	// template values
 	private readonly values: Value[];
+
 	/**
-	 * Creates an instance of Table.
-	 * @param    {array} strings
-	 * @param    {array} values
+	 * Creates an instance of Table
+	 *
+	 * @param {TemplateStringsArray} strings
+	 * @param {...unknown[]} values
 	 * @memberof Table
 	 */
 	constructor(strings: TemplateStringsArray, ...values: unknown[]) {
@@ -24,9 +35,11 @@ export class Table {
 	}
 
 	/**
-	 * Obtain the interleaved strings and values provided during construction
+	 * interleave
+	 * Get the inleaved template literals and types
 	 *
 	 * @readonly
+	 * @type {Value[]}
 	 * @memberof Table
 	 */
 	get interleave(): Value[] {
@@ -43,9 +56,11 @@ export class Table {
 	}
 
 	/**
-	 * Obtain the Rows (and its Cells)
+	 * row
+	 * Obtain all the rows from the table
 	 *
 	 * @readonly
+	 * @type {Row[]}
 	 * @memberof Table
 	 */
 	get rows(): Row[] {
@@ -71,10 +86,11 @@ export class Table {
 	}
 
 	/**
-	 * Map the Rows/Cells into a basic object (optionally filtering rows)
+	 * records
+	 * Obtain all the records from the table
 	 *
-	 * @param    {...function} filters
-	 * @returns  {array}
+	 * @param {...((value: unknown[]) => boolean)[]} filters
+	 * @returns
 	 * @memberof Table
 	 */
 	records(...filters: ((value: unknown[]) => boolean)[]): { [key: string]: unknown }[] {
