@@ -1,7 +1,8 @@
 import { Cell } from './Cell';
-import { Record } from './Record';
+import { Collection } from './Collection';
 
-export class Row extends Record<Cell> {
+/**
+export class Row extends Collection<Cell> {
 	compact(): unknown[] {
 		const { items } = this;
 

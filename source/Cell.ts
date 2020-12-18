@@ -1,10 +1,10 @@
-import { Record } from './Record';
+import { Collection } from './Collection';
 import { Character } from './Character';
 import { Value } from './Value';
 
 const space = Character.from(' ');
 
-export class Cell extends Record<Value> {
+export class Cell extends Collection<Value> {
 	trim(): Cell {
 		const { items } = this;
 		let first = 0;

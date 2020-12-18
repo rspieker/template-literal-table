@@ -1,5 +1,5 @@
-export class Record<T extends unknown> {
-	readonly items: T[] = [];
+export class Collection<T extends unknown> {
+	constructor(public readonly items: T[] = []) { }
 
 	get last(): T {
 		const { items } = this;
