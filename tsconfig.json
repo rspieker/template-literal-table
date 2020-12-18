@@ -3,14 +3,21 @@
     "source/**/*.ts"
   ],
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "declaration": true,
+    "esModuleInterop": true,
     "lib": [
-      "ES2015"
+      "ES2015",
+      "DOM"
+    ],
+    "module": "commonjs",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "sourceRoot": "./source/",
+    "rootDirs": [
+      ".",
+      "./source"
     ],
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "es5",
   }
 }
