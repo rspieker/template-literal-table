@@ -1,4 +1,4 @@
-import { Tagged } from './Tagged';
+import { Literal } from './Literal';
 import { Value } from './Value';
 import { Character } from './Character';
 import { Row } from './Row';
@@ -8,7 +8,9 @@ const EOL = Character.from('\n');
 const separator = Character.from('|');
 
 export class Table {
-	private readonly strings: Tagged[];
+	// template literals
+	private readonly strings: Literal[];
+	// template values
 	private readonly values: Value[];
 	/**
 	 * Creates an instance of Table.
@@ -17,7 +19,7 @@ export class Table {
 	 * @memberof Table
 	 */
 	constructor(strings: TemplateStringsArray, ...values: unknown[]) {
-		this.strings = strings.map((value) => Tagged.from(value));
+		this.strings = strings.map((value) => new Literal(value));
 		this.values = values.map((value) => Value.from(value));
 	}
 
@@ -31,9 +33,9 @@ export class Table {
 		const { strings, values } = this;
 
 		return strings.reduce(
-			(carry: Value[], { tokenized }: Tagged, index: number) =>
+			(carry: Value[], { items }: Literal, index: number) =>
 				carry.concat(
-					tokenized,
+					items,
 					values.length > index ? values[index] : []
 				),
 			[]
