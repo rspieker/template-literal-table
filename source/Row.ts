@@ -20,6 +20,6 @@ export class Row extends Collection<Cell> {
 	compact(): unknown[] {
 		const { items } = this;
 
-		return items.map((cell: any) => cell.compact());
+		return items.map((cell: Cell) => cell.compact());
 	}
 }
