@@ -6,8 +6,8 @@
  * @class Value
  */
 export class Value {
-	// storage containing each class (and extend) unique value instances
-	private static storage: WeakMap<typeof Value, unknown> = new WeakMap();
+	// cache containing each unique value instance
+	protected static cache: Map<unknown, Value> = new Map();
 
 	/**
 	 * Creates an instance of Value
@@ -27,15 +27,10 @@ export class Value {
 	 * @memberof Value
 	 */
 	static from(value: unknown): Value {
-		if (!this.storage.has(this)) {
-			this.storage.set(this, new Map());
-		}
-		const cache = this.storage.get(this) as Map<unknown, Value>;
-
-		if (!cache.has(value)) {
-			cache.set(value, new this(value));
+		if (!this.cache.has(value)) {
+			this.cache.set(value, new this(value));
 		}
 
-		return cache.get(value) as Value;
+		return this.cache.get(value) as Value;
 	}
 }
