@@ -202,3 +202,24 @@ test('treats empty cells as undefined, preserves empty rows', (t) => {
 
 	t.end();
 });
+
+test('preserves types as provided', (t) => {
+	const array = [1, 2, 3];
+	const object = { hello: 'world' };
+	const date = new Date();
+	const types = [array, object, date];
+	const table = tag`
+			value     | description
+			----------|-------
+			${array}  | array
+			${object} | object
+			${date}   | Date
+	`;
+
+	types.forEach((input, index) => {
+		const { description, value } = table[index];
+		t.strictEqual(value, input, String(description));
+	});
+
+	t.end();
+});
