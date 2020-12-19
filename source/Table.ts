@@ -10,7 +10,6 @@ const EOL = Character.from('\n');
 const separator = Character.from('|');
 
 /**
- * Table
  * Represent the table as a whole
  *
  * @export
@@ -35,7 +34,6 @@ export class Table {
 	}
 
 	/**
-	 * interleave
 	 * Get the inleaved template literals and types
 	 *
 	 * @readonly
@@ -56,7 +54,6 @@ export class Table {
 	}
 
 	/**
-	 * row
 	 * Obtain all the rows from the table
 	 *
 	 * @readonly
@@ -86,7 +83,6 @@ export class Table {
 	}
 
 	/**
-	 * records
 	 * Obtain all the records from the table
 	 *
 	 * @param {...((value: unknown[]) => boolean)[]} filters

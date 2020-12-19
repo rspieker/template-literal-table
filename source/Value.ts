@@ -1,5 +1,4 @@
 /**
- * Value
  * Representation of a single value
  *
  * @export
@@ -18,7 +17,6 @@ export class Value {
 	constructor(public readonly value: unknown) { }
 
 	/**
-	 * from
 	 * Create (or re-use) a Value instance representing a value
 	 *
 	 * @static

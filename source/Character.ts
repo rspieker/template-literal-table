@@ -1,7 +1,6 @@
 import { Value } from './Value';
 
 /**
- * Character
  * Represents a single string character (originating from the template string itself)
  *
  * @export
@@ -10,7 +9,6 @@ import { Value } from './Value';
  */
 export class Character extends Value {
 	/**
-	 * from
 	 * Create a character instance based on the input value.
 	 * Normalizes all whitespace into a single space
 	 *

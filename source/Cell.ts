@@ -6,7 +6,6 @@ import { Value } from './Value';
 const space = Character.from(' ');
 
 /**
- * Cell
  * A single cell within a table row
  *
  * @export
@@ -15,7 +14,6 @@ const space = Character.from(' ');
  */
 export class Cell extends Collection<Value> {
 	/**
-	 * compact
 	 * Rebuild the cell contents into the cleaned up result, either consisting
 	 * of a single type (as provided) or a string (if the trimmed input consist
 	 * of multiple concetanated types)

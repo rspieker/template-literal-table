@@ -2,7 +2,6 @@ import { Collection } from './Collection';
 import { Character } from './Character';
 
 /**
- * Literal
  * Template literal string representated as list of Characters
  *
  * @export

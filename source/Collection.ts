@@ -1,5 +1,4 @@
 /**
- * Collection
  * Base Collection class, holding the same generic type
  *
  * @export
@@ -16,7 +15,6 @@ export class Collection<T extends unknown> {
 	constructor(public readonly items: T[] = []) { }
 
 	/**
-	 * last
 	 * Get the last item within the collection
 	 *
 	 * @readonly
@@ -30,7 +28,6 @@ export class Collection<T extends unknown> {
 	}
 
 	/**
-	 * append
 	 * Append an item to the collection
 	 *
 	 * @param {T} item
