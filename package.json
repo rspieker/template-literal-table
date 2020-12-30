@@ -8,7 +8,7 @@
     "test": "ts-node node_modules/.bin/tape 'test/**/*.ts'",
     "test:coverage": "nyc --require ts-node/register tape 'test/**/*.ts'",
     "test:pretty": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-spec",
-    "build": "tsc -p tsconfig.json",
+    "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "prepare": "npm run build"
   },
   "homepage": "https://github.com/rspieker/template-literal-table",
