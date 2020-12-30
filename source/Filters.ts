@@ -1,3 +1,5 @@
+export type FilterFunction = (...args: unknown[]) => boolean;
+
 /**
  * Determines whether not all values consist of '-' (with a minimum of two)
  *
