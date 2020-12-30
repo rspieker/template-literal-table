@@ -2,8 +2,8 @@
   "name": "template-literal-table",
   "version": "2.0.5",
   "description": "Tagged template literal mapping markdown style tables into objects",
-  "main": "dist/tag.js",
-  "types": "dist/tag.d.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "scripts": {
     "test": "ts-node node_modules/.bin/tape 'test/**/*.ts'",
     "test:coverage": "nyc --require ts-node/register tape 'test/**/*.ts'",

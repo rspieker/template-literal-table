@@ -1,5 +1,5 @@
 import test from 'tape';
-import tag from '../../source/tag';
+import { tag } from '../../source';
 
 test('parses full variable tables', (t) => {
 	const table = tag`
