@@ -1,23 +1,18 @@
 {
   "include": [
-    "source/**/*.ts"
+    "source"
+  ],
+  "exclude": [
+    "test",
+    "node_modules"
   ],
   "compilerOptions": {
     "declaration": true,
-    "esModuleInterop": true,
-    "lib": [
-      "ES2015",
-      "DOM"
-    ],
-    "module": "commonjs",
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "sourceRoot": "./source/",
-    "rootDirs": [
-      ".",
-      "./source"
-    ],
-    "strict": true,
+    "outDir": "dist",
     "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

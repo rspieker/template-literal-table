@@ -1,5 +1,20 @@
 import test from 'tape';
-import { tag } from '../../source';
+import * as Table from '../../source';
+
+test('exports', (t) => {
+	t.true(typeof Table.table === 'function', 'exports "table" function');
+	t.true(typeof Table.empty === 'function', 'exports "empty" function');
+	t.true(typeof Table.create === 'function', 'exports "create" function');
+
+	t.true(typeof Table.default === 'function', 'exports "default" function');
+	t.equal(Table.default, Table.table, 'exported "default" is the "table" function');
+
+	t.deepEqual(Object.keys(Table), ['create', 'empty', 'table', 'default'], 'exports only "create", "empty", "table" and "default"');
+
+	t.end();
+});
+
+const { default: tag } = Table;
 
 test('parses full variable tables', (t) => {
 	const table = tag`
@@ -220,6 +235,65 @@ test('preserves types as provided', (t) => {
 		const { description, value } = table[index];
 		t.strictEqual(value, input, String(description));
 	});
+
+	t.end();
+});
+
+test('create - no filters', (t) => {
+	const all = Table.create();
+	const table = all`
+		one | two
+		----|-----
+			|
+		1   |
+			| 2
+		1   | 2
+	`;
+
+	t.equal(table.length, 6, 'has 6 items');
+	t.deepEqual(table[0], { one: '----', two: '-----' });
+	t.deepEqual(table[1], { one: undefined, two: undefined });
+	t.deepEqual(table[2], { one: '1', two: undefined });
+	t.deepEqual(table[3], { one: undefined, two: '2' });
+	t.deepEqual(table[4], { one: '1', two: '2' });
+	t.deepEqual(table[5], { one: undefined, two: undefined });
+
+	t.end();
+});
+
+test('create - custom filter', (t) => {
+	const none = Table.create(() => false);
+	const table = none`
+		one | two
+		----|-----
+			|
+		1   |
+			| 2
+		1   | 2
+	`;
+
+	t.equal(table.length, 0, 'has 0 items');
+
+	t.end();
+});
+
+test('create - fourth (readme example)', (t) => {
+	const fourth = Table.create((...values: unknown[]) => Boolean(values[3]) && !/^--+$/.test(String(values[3])));
+	const table = fourth`
+		one | two | three | four
+		----|-----|-------|------
+		1   | 2   | 3     | 4
+		1   | 2   | 3     |
+		1   | 2   |       | 4
+		1   |     | 3     | 4
+			| 2   | 3     | 4
+	`;
+
+	t.equal(table.length, 4, 'has 4 items');
+	t.deepEqual(table[0], { one: '1', two: '2', three: '3', four: '4' });
+	t.deepEqual(table[1], { one: '1', two: '2', three: undefined, four: '4' });
+	t.deepEqual(table[2], { one: '1', two: undefined, three: '3', four: '4' });
+	t.deepEqual(table[3], { one: undefined, two: '2', three: '3', four: '4' });
 
 	t.end();
 });
