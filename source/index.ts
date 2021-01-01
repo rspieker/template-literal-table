@@ -1,20 +1,17 @@
 import { interleave } from './Collection';
-import { TableRecord, records } from './Table';
-import { FilterFunction, divider, defined } from './Filters';
-
-
-export type TemplateLiteralTable = (strings: TemplateStringsArray, ...values: unknown[]) => TableRecord[];
+import { records } from './Table';
+import { divider, defined } from './Filters';
 
 /**
  * create a new template literal function parsing tables with a custom set of filters
  *
  * @export
- * @param {...FilterFunction[]} filters
- * @returns {TemplateLiteralTable}
+ * @param {...((...args: unknown[]) => boolean)[]} filters
+ * @returns {(...args: Parameters<typeof interleave>) => { [key: string]: unknown }[]}
  */
-export function create(...filters: FilterFunction[]): TemplateLiteralTable {
-	return <T extends TableRecord>(strings: TemplateStringsArray, ...values: unknown[]) =>
-		records<T>(interleave(strings, ...values), ...filters) as T[];
+export function create(...filters: ((...args: unknown[]) => boolean)[]): (...args: Parameters<typeof interleave>) => { [key: string]: unknown }[] {
+	return <T extends { [key: string]: unknown }>(...args: Parameters<typeof interleave>) =>
+		records<T>(interleave(...args), ...filters) as T[];
 }
 
 /**
@@ -39,5 +36,4 @@ export const empty = create(divider);
  * @returns {T[]}
  */
 export const table = Object.assign(create(divider, defined), { empty });
-
 export default table;

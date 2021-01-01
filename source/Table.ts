@@ -3,8 +3,6 @@ import { Character } from './Character';
 import { split, trim } from './Collection';
 import { FilterFunction } from './Filters';
 
-export type TableRecord = Record<string, unknown>;
-
 const pipe = Character.from('|');
 const line = Character.from('\n');
 const space = Character.from(' ');
@@ -47,7 +45,7 @@ function rows(values: Value[], ...filters: FilterFunction[]): unknown[][] {
  * @param {...FilterFunction[]} filters
  * @returns {T[]}
  */
-export function records<T extends TableRecord>(values: Value[], ...filters: FilterFunction[]): T[] {
+export function records<T extends { [key: string]: unknown }>(values: Value[], ...filters: FilterFunction[]): T[] {
 	const [header, ...lines] = rows(values, ...filters);
 
 	return lines.map((line) =>
