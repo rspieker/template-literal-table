@@ -17,6 +17,7 @@ jobs:
       node_js: 14
       deploy:
         provider: npm
+        skip_cleanup: true
         email: rogier+npm@konfirm.eu
         on:
           branch: master
