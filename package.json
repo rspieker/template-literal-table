@@ -5,9 +5,15 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
-    "test": "ts-node node_modules/.bin/tape 'test/**/*.ts'",
-    "test:coverage": "nyc --require ts-node/register tape 'test/**/*.ts'",
-    "test:pretty": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-spec",
+    "test": "run-script-os",
+    "test:nix": "ts-node node_modules/tape/bin/tape 'test/**/*.ts'",
+    "test:win32": "ts-node node_modules/tape/bin/tape test/**/*.ts",
+    "test:coverage": "run-script-os",
+    "test:coverage:nix": "nyc --reporter=html --require ts-node/register tape 'test/**/*.ts' | tap-arc",
+    "test:coverage:win32": "nyc --reporter=html --require ts-node/register tape test/**/*.ts | tap-arc",
+    "test:pretty": "run-script-os",
+    "test:pretty:nix": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-arc",
+    "test:pretty:win32": "nyc --require ts-node/register tape test/**/*.ts | tap-arc",
     "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "prepare": "npm run build"
   },
@@ -40,7 +46,8 @@
   "devDependencies": {
     "@types/tape": "^4.13.0",
     "nyc": "^15.1.0",
-    "tap-spec": "^5.0.0",
+    "run-script-os": "^1.1.6",
+    "tap-arc": "^0.1.1",
     "tape": "^5.0.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
