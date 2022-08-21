@@ -2,6 +2,8 @@ import { interleave } from './Collection';
 import { records } from './Table';
 import { divider, defined } from './Filters';
 
+type Table = { <T extends { [key: string]: unknown }>(template: TemplateStringsArray, ...values: Array<unknown>): Array<T> };
+
 /**
  * create a new template literal function parsing tables with a custom set of filters
  *
@@ -24,7 +26,7 @@ export function create(...filters: ((...args: unknown[]) => boolean)[]): (...arg
  * @param {...unknown[]} values
  * @returns {T[]}
  */
-export const empty = create(divider);
+export const empty = <Table>create(divider);
 
 /**
  * Table template literal parser, exludes both any divider row and
@@ -35,5 +37,5 @@ export const empty = create(divider);
  * @param {...unknown[]} values
  * @returns {T[]}
  */
-export const table = Object.assign(create(divider, defined), { empty });
+export const table = <Table & { empty: Table }>Object.assign(create(divider, defined), { empty });
 export default table;
