@@ -2,21 +2,22 @@ import test from 'tape';
 import * as Table from '../../source';
 
 test('exports', (t) => {
-	t.true(typeof Table.table === 'function', 'exports "table" function');
-	t.true(typeof Table.empty === 'function', 'exports "empty" function');
+	t.deepEqual(Object.keys(Table), ['create', 'empty', 'table', 'mapper', 'default'], 'exports only "create", "empty", "table", "mapper" and "default"');
+
 	t.true(typeof Table.create === 'function', 'exports "create" function');
+	t.true(typeof Table.table === 'function', 'exports "table" function');
+	t.true(typeof Table.mapper === 'function', 'exports "mapper" function');
+	t.true(typeof Table.empty === 'function', 'exports "empty" function');
 
 	t.true(typeof Table.default === 'function', 'exports "default" function');
 	t.equal(Table.default, Table.table, 'exported "default" is the "table" function');
-
-	t.deepEqual(Object.keys(Table), ['create', 'empty', 'table', 'default'], 'exports only "create", "empty", "table" and "default"');
 
 	t.end();
 });
 
 const { default: tag } = Table;
 
-test('parses full variable tables', (t) => {
+test('default - parses full variable tables', (t) => {
 	const table = tag`
 			letter  | index
 			${'a'}  | ${1}
@@ -38,7 +39,7 @@ test('parses full variable tables', (t) => {
 	t.end();
 });
 
-test('parses full static tables', (t) => {
+test('default - parses full static tables', (t) => {
 	const table = tag`
 			letter | index
 			a      | 1
@@ -60,7 +61,7 @@ test('parses full static tables', (t) => {
 	t.end();
 });
 
-test('parses mixed variable and static tables', (t) => {
+test('default - parses mixed variable and static tables', (t) => {
 	const table = tag`
 			letter  | index
 			a       | 1
@@ -82,7 +83,7 @@ test('parses mixed variable and static tables', (t) => {
 	t.end();
 });
 
-test('stringifies cells', (t) => {
+test('default - stringifies cells', (t) => {
 	const table = tag`
 			letter        | index
 			a b           | 1
@@ -104,7 +105,7 @@ test('stringifies cells', (t) => {
 	t.end();
 });
 
-test('ignores divider rows', (t) => {
+test('default - ignores divider rows', (t) => {
 	const table = tag`
 			letter  | index
 			--------|-------
@@ -127,7 +128,7 @@ test('ignores divider rows', (t) => {
 	t.end();
 });
 
-test('does not need to start with a newline', (t) => {
+test('default - does not need to start with a newline', (t) => {
 	const table = tag`	foo    | bar    | baz    | qux
 	                    ${'a'} | ${'b'} | ${'c'} | ${'d'}
 	                 `;
@@ -140,7 +141,7 @@ test('does not need to start with a newline', (t) => {
 	t.end();
 });
 
-test('does not need to end with a newline', (t) => {
+test('default - does not need to end with a newline', (t) => {
 	const table = tag`
 	              foo    | bar    | baz    | qux
 	              ${'a'} | ${'b'} | ${'c'} | ${'d'}`;
@@ -153,7 +154,7 @@ test('does not need to end with a newline', (t) => {
 	t.end();
 });
 
-test('does not need to start nor end with a newline', (t) => {
+test('default - does not need to start nor end with a newline', (t) => {
 	const table = tag`	foo    | bar    | baz    | qux
 	                    ${'a'} | ${'b'} | ${'c'} | ${'d'}`;
 
@@ -165,7 +166,7 @@ test('does not need to start nor end with a newline', (t) => {
 	t.end();
 });
 
-test('treats empty cells as undefined, empty rows are ignored', (t) => {
+test('default - treats empty cells as undefined, empty rows are ignored', (t) => {
 	const und = ((u) => u)();
 	const table = tag`
 			foo | bar | baz | qux
@@ -190,7 +191,7 @@ test('treats empty cells as undefined, empty rows are ignored', (t) => {
 	t.end();
 });
 
-test('treats empty cells as undefined, preserves empty rows', (t) => {
+test('empty - treats empty cells as undefined, preserves empty rows', (t) => {
 	const und = ((u) => u)();
 	const table = tag.empty`
 			foo  | bar  | baz | qux
@@ -218,7 +219,7 @@ test('treats empty cells as undefined, preserves empty rows', (t) => {
 	t.end();
 });
 
-test('preserves types as provided', (t) => {
+test('default - preserves types as provided', (t) => {
 	const array = [1, 2, 3];
 	const object = { hello: 'world' };
 	const date = new Date();
@@ -235,6 +236,24 @@ test('preserves types as provided', (t) => {
 		const { description, value } = table[index];
 		t.strictEqual(value, input, String(description));
 	});
+
+	t.end();
+});
+
+test('map - casts values', (t) => {
+	const map = Table.mapper<{ foo: number, bar: boolean, baz: Array<string> }>({ foo: Number, bar: (v): boolean => Boolean(Number(v)), baz: (v) => [String(v)] });
+	const records = map`
+		foo | bar | baz
+		----|-----|-----
+		7   | 1   | 3
+		2   | 0   | 0
+	`;
+	const expected = [
+		{ foo: 7, bar: true, baz: ['3'] },
+		{ foo: 2, bar: false, baz: ['0'] },
+	];
+
+	t.deepEqual(records, expected, 'maps every record');
 
 	t.end();
 });
@@ -278,7 +297,7 @@ test('create - custom filter', (t) => {
 });
 
 test('create - fourth (readme example)', (t) => {
-	const fourth = Table.create((...values: unknown[]) => Boolean(values[3]) && !/^--+$/.test(String(values[3])));
+	const fourth = Table.create((...values: Array<unknown>) => Boolean(values[3]) && !/^--+$/.test(String(values[3])));
 	const table = fourth`
 		one | two | three | four
 		----|-----|-------|------
@@ -294,6 +313,32 @@ test('create - fourth (readme example)', (t) => {
 	t.deepEqual(table[1], { one: '1', two: '2', three: undefined, four: '4' });
 	t.deepEqual(table[2], { one: '1', two: undefined, three: '3', four: '4' });
 	t.deepEqual(table[3], { one: undefined, two: '2', three: '3', four: '4' });
+
+	t.end();
+});
+
+test('mapper - readme example', (t) => {
+	const { mapper } = Table;
+	const mapping = {
+		number: (value: unknown) => value ? Number(value) : undefined,
+		boolean: (value: unknown) => value === 'yes',
+		array: (value: unknown) => value ? String(value).split(/\s*,\s*/) : [],
+	};
+	const mapped = mapper<{ string: string, number?: number, boolean: boolean, array: Array<string> }>(mapping);
+	const records = mapped`
+	 string | number | boolean | array  
+	 ------ | ------ | ------- | -------
+	 foo    | 1      | yes     | a, b   
+	 bar    |        | no      | b, c, d
+	 baz    | 7      |         |        
+	 `;
+	const expected = [
+		{ string: 'foo', number: 1, boolean: true, array: ['a', 'b'] },
+		{ string: 'bar', number: undefined, boolean: false, array: ['b', 'c', 'd'] },
+		{ string: 'baz', number: 7, boolean: false, array: [] },
+	]
+
+	t.deepEqual(records, expected, 'maps the values');
 
 	t.end();
 });
