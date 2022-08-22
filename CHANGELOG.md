@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 
 ### Added
+### Changed
+### Fixed
+### Deprecated
+
+
+## [3.0.2] - 2022-08-22
+
+### Added
 - Support for return type definition
 - mapper to create a table parser which maps the returned properties
 
@@ -49,7 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2018-12-24
 - Initial release
 
-[unreleased]: https://github.com/rspieker/template-literal-table/compare/v3.0.1...HEAD
+[unreleased]: https://github.com/rspieker/template-literal-table/compare/v3.0.2...HEAD
+[3.0.2]: https://github.com/rspieker/template-literal-table/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/rspieker/template-literal-table/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/rspieker/template-literal-table/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/rspieker/template-literal-table/compare/v1.0.4...v2.0.0
