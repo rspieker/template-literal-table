@@ -12,12 +12,13 @@ $ npm install --save template-literal-table
 ## Exports
 The following functions are exported
 
-name      | description
-----------|-------------
-`default` | The `default` export, this is `table`
-`table`   | Table parser, skips divider rows (cell only containing two or more `-` characters) and rows consisting of empty cells
-`empty`   | Table parser, skips divider rows, preserves rows consisting of empty cells
-`create`  | Table parser creator, creates a new partser function with custom row filter functions
+| name      | description                                                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------- |
+| `default` | The `default` export, this is `table`                                                                                 |
+| `table`   | Table parser, skips divider rows (cell only containing two or more `-` characters) and rows consisting of empty cells |
+| `empty`   | Table parser, skips divider rows, preserves rows consisting of empty cells                                            |
+| `create`  | Table parser creator, creates a new partser function with custom row filter functions                                 |
+| `mapper`  | Table parser creator, creates a new partser function which maps specific property values                              |
 
 ## Usage
 The template literal syntax allows for a lot of flexibility, as any type of value can be formatted without losing the actual value by providing the `${value}` syntax. For fixed strings, you don't have to use the placeholder syntax if you don't care about its type (e.g. you cast it "manually" afterwards or its type is `string` anyway, which is what will be provided as).
@@ -51,7 +52,7 @@ import { table } from('template-literal-table');
 const records = table`
 	foo  | bar   | baz
 	-----|-------|-----
-	     |       |
+	     |
 	one
 	     | two
 	     |       | three
@@ -79,7 +80,7 @@ import { empty } from('template-literal-table');
 const records = empty`
 	foo  | bar   | baz
 	-----|-------|-----
-	     |       |
+	     |
 	one
 	     | two
 	     |       | three
@@ -111,13 +112,13 @@ import { create } from 'template-literal-table';
 // if the fourth column contains a value that is not a divider we want it to be present
 const fourth = create((...values: unknown[]) => Boolean(values[3]) && !/^--+$/.test(String(values[3])) );
 const records = fourth`
-	one | two | three | four
-	----|-----|-------|------
-	1   | 2   | 3     | 4
-	1   | 2   | 3     |
-	1   | 2   |       | 4
-	1   |     | 3     | 4
-	    | 2   | 3     | 4
+ | one | two | three | four |
+ | --- | --- | ----- | ---- |
+ | 1   | 2   | 3     | 4    |
+ | 1   | 2   | 3     |
+ | 1   | 2   |       | 4    |
+ | 1   |     | 3     | 4    |
+ | 2   | 3   | 4     |
 `;
 
 //  records = [
@@ -128,27 +129,33 @@ const records = fourth`
 //  ]
 ```
 
-## Tips
-
-### Typed "columns"
-
-In order to improve readability of a table, sometimes it's beneficial to not explicitly provide the true values within the table, but to cast it after it's been processed.
-Since the result of the `table` (and `empty` and the created ones) is an array of objects, this can be done using a simple `map`
+### `mapper`
+It can be convenient to simplify a table and then mapping the values into a specific type or format. For this purpose the `mapper` function exists, it receives a mapper object defining all the properties with a mapping function as value. The mappings will be applied _after_ the records are created from the values, meaning the mapping functions will receive only the value of records that were preserved during filtering.
 
 ```js
-const tableRaw = table`
-	base | add  | result
-	-----|------|--------
-	${1} | ${1} | ${2}
-	${1} | ${2} | ${3}
-`;
+import { mapper } from 'template-literal-table';
 
-const tableMapped = table`
-	base | add  | result
-	-----|------|--------
-	1    | 1    | 2   
-	1    | 2    | 3   
-`.map(({ base, add, result }) => ({ base: Number(base), add: Number(add), result: Number(result) }));
+// define the mapping
+const mapping = {
+	// we can skip the string conversion, as all values are strings by default
+	number: (value) => value.length ? Number(value): undefined,
+	boolean: (value) => value === 'yes',
+	array: (value) => value.split(/\s*,\s*/),
+};
+const mapped = mapper();
+const records = mapped`
+ string | number | boolean | array  
+ ------ | ------ | ------- | -------
+ foo    | 1      | yes     | a, b   
+ bar    |        | no      | b, c, d
+ baz    | 7      |         |        
+ `;
+
+//  records = [
+//    { string: 'foo', number: 1, boolean: true, array: ['a', 'b'] },
+//    { string: 'bar', number: undefined, boolean: false, array: ['b', 'c', 'd'] },
+//    { string: 'baz', number: 7, boolean: false, array: [] },
+//  ]
 ```
 
 ### Filters

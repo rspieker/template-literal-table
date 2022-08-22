@@ -2,7 +2,11 @@ import { interleave } from './Collection';
 import { records } from './Table';
 import { divider, defined } from './Filters';
 
-type Table = { <T extends { [key: string]: unknown }>(template: TemplateStringsArray, ...values: Array<unknown>): Array<T> };
+type Item = { [key: string]: unknown };
+type MapperFunction<T = unknown> = (value: T | string | unknown) => T;
+type Mapper<T extends Item> = { [K in keyof T]: MapperFunction<T[K]> };
+type Params = Parameters<typeof interleave>;
+type Table<T extends Item = Item> = { (...args: Params): Array<T> };
 
 /**
  * create a new template literal function parsing tables with a custom set of filters
@@ -39,3 +43,17 @@ export const empty = <Table>create(divider);
  */
 export const table = <Table & { empty: Table }>Object.assign(create(divider, defined), { empty });
 export default table;
+
+/**
+ * Create a new table template literaral parser, mapping specified keys
+ *
+ * @export
+ * @template T
+ * @param {Mapper<T>} mapper
+ * @return {Table<T>}
+ */
+export function mapper<T extends Item>(mapper: Mapper<T>): Table<T> {
+	const mapping = <MapperFunction<T>>Object.keys(mapper).reduce((carry, key) => (item: T) => carry({ ...item, [key]: mapper[key](item[key]) }), (item: T): T => item);
+
+	return (...args: Params): Array<T> => table(...args).map(mapping);
+}
