@@ -12,10 +12,10 @@ const space = Character.from(' ');
  * trim each value and extract the original value (if the original "cell" value
  * consisted of more than one Value, it will be joined as string)
  *
- * @param {Value[]} values
- * @returns {unknown[]}
+ * @param {Array<Value>} values
+ * @returns {Array<unknown>}
  */
-function cells(values: Value[]): unknown[] {
+function cells(values: Array<Value>): Array<unknown> {
 	return split(values, pipe)
 		.map((cell) => trim(cell, space))
 		.map((cell) => cell.map(({ value }) => value))
@@ -25,11 +25,11 @@ function cells(values: Value[]): unknown[] {
 /**
  * split a list of Value instance into "rows" for every newline character
  *
- * @param {Value[]} values
- * @param {...FilterFunction[]} filters
- * @returns {unknown[][]}
+ * @param {Array<Value>} values
+ * @param {...Array<FilterFunction>} filters
+ * @returns {Array<Array<unknown>>}
  */
-function rows(values: Value[], ...filters: FilterFunction[]): unknown[][] {
+function rows(values: Array<Value>, ...filters: Array<FilterFunction>): Array<Array<unknown>> {
 	return split(values, line)
 		.map(cells)
 		.filter((row) => filters.every((filter) => filter(...row)));
@@ -41,11 +41,11 @@ function rows(values: Value[], ...filters: FilterFunction[]): unknown[][] {
  *
  * @export
  * @template T
- * @param {Value[]} values
- * @param {...FilterFunction[]} filters
- * @returns {T[]}
+ * @param {Array<Value>} values
+ * @param {...Array<FilterFunction>} filters
+ * @returns {Array<T>}
  */
-export function records<T extends { [key: string]: unknown }>(values: Value[], ...filters: FilterFunction[]): T[] {
+export function records<T extends { [key: string]: unknown }>(values: Array<Value>, ...filters: Array<FilterFunction>): Array<T> {
 	const [header, ...lines] = rows(values, ...filters);
 
 	return lines.map((line) =>

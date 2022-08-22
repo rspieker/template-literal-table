@@ -297,7 +297,7 @@ test('create - custom filter', (t) => {
 });
 
 test('create - fourth (readme example)', (t) => {
-	const fourth = Table.create((...values: unknown[]) => Boolean(values[3]) && !/^--+$/.test(String(values[3])));
+	const fourth = Table.create((...values: Array<unknown>) => Boolean(values[3]) && !/^--+$/.test(String(values[3])));
 	const table = fourth`
 		one | two | three | four
 		----|-----|-------|------

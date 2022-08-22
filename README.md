@@ -27,11 +27,11 @@ The template literal syntax allows for a lot of flexibility, as any type of valu
 const table = require('template-literal-table');
 
 const records = table`
-	foo  | bar   | baz
-	-----|-------|-----
-	${1} | ${2}  | ${4}
-	${2} | ${4}  | ${8}
-	4    | 8     | 16
+	foo  | bar  | baz 
+	-----|------|-----
+	${1} | ${2} | ${4}
+	${2} | ${4} | ${8}
+	4    | 8    | 16  
 `;
 
 //  records = [
@@ -104,13 +104,13 @@ const records = empty`
 ### `create`
 The `table` and `empty` function should cover most scenarios, though sometimes one needs different filters to be applied to the records passed in. For this purpose the `create` function exists, it allows any number of filters to be specified, which will be applied _before_ the records are created from the values, meaning the filter functions will receive all values as argument.
 
-The filter function signature is `(...cells: unknown[]) => boolean`
+The filter function signature is `(...cells: Array<unknown>) => boolean`
 
 ```js
 import { create } from 'template-literal-table';
 
 // if the fourth column contains a value that is not a divider we want it to be present
-const fourth = create((...values: unknown[]) => Boolean(values[3]) && !/^--+$/.test(String(values[3])) );
+const fourth = create((...values: Array<unknown>) => Boolean(values[3]) && !/^--+$/.test(String(values[3])) );
 const records = fourth`
  | one | two | three | four |
  | --- | --- | ----- | ---- |
