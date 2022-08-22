@@ -50,5 +50,5 @@ export function records<T extends { [key: string]: unknown }>(values: Array<Valu
 
 	return lines.map((line) =>
 		header.reduce((carry: T, name: unknown, index: number) => ({ ...carry, [String(name)]: line[index] }), {} as T)
-	);
+	) as Array<T>;
 }
