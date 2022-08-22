@@ -188,6 +188,27 @@ In the table below some samples are shown:
  ${1} ${2}     | string    | (string) `'1 2'`   
  ```
 
+## Tips
+
+### Prettier
+_This tip was suggested by @LucasSegersFabro_
+If you want prettier to format your tables automatically, you can trick it into thinking it is looking at the Jest each syntax (which unfortunatly a hardcoded pattern within prettier).
+
+```js
+// for formatting purposes
+const it = {
+  each: table,
+};
+
+const test = suite('Common processor tests');
+
+const Table = it.each`
+  your   | table | here
+  -------|-------|------
+  thanks | to    | @LucasSegersFabro
+`;
+```
+
 # License
 
 MIT License Copyright (c) 2018-2021 Rogier Spieker
