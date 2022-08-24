@@ -32,6 +32,20 @@ function rows(values: Array<Value>, ...filters: Array<FilterFunction>): Array<Ar
 }
 
 /**
+ * Populate a list of values
+ *
+ * @template T
+ * @param {Array<unknown>} header
+ * @param {Array<Array<unknown>>} list
+ * @return {*}  {Array<T>}
+ */
+function populate<T>(header: Array<unknown>, list: Array<Array<unknown>>): Array<T> {
+	return list.map((values) =>
+		header.reduce((carry: T, name: unknown, index: number) => ({ ...carry, [String(name)]: values[index] }), {} as T)
+	) as Array<T>;
+}
+
+/**
  * turn a list of Value instances into a table structure (rows < cells) and turn
  * each row into a Record using the first row as key names
  *
@@ -42,9 +56,11 @@ function rows(values: Array<Value>, ...filters: Array<FilterFunction>): Array<Ar
  * @returns {Array<T>}
  */
 export function records<T extends { [key: string]: unknown }>(values: Array<Value>, ...filters: Array<FilterFunction>): Array<T> {
-	const [header, ...lines] = rows(values, ...filters);
+	const [header = [], ...lines] = rows(values, ...filters);
+	const start = Number(typeof header[0] === 'undefined');
+	const end = Number(typeof header[header.length - 1] === 'undefined') * -1;
 
-	return lines.map((line) =>
-		header.reduce((carry: T, name: unknown, index: number) => ({ ...carry, [String(name)]: line[index] }), {} as T)
-	) as Array<T>;
+	return (start || end)
+		? populate<T>(header.slice(start, end), lines.map((line) => line.slice(start, end)))
+		: populate<T>(header, lines);
 }
