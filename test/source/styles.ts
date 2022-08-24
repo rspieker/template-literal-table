@@ -8,6 +8,49 @@ const expected = [
     { id: '4', name: 'Square Programming Thing', rarity: 'rare', discount: undefined },
 ];
 
+test('Style - absolute minimum', (t) => {
+    const parsed = table`
+        id|name|rarity|discount
+        1|Lovely \\| Ancient U-shaped Minute|common|15%
+        2|Big Cooking \`Book\`|common|40%
+        3|Lovely Metal Research|uncommon|5%
+        4|Square Programming Thing|rare
+    `;
+
+    t.deepEqual(parsed, expected, 'interprets correctly');
+
+    t.end();
+});
+
+test('Style - minimal', (t) => {
+    const parsed = table`
+        id | name | rarity | discount
+        1 | Lovely \\| Ancient U-shaped Minute | common | 15%
+        2 | Big Cooking \`Book\` | common | 40%
+        3 | Lovely Metal Research|uncommon | 5%
+        4 | Square Programming Thing | rare
+    `;
+
+    t.deepEqual(parsed, expected, 'interprets correctly');
+
+    t.end();
+});
+
+test('Style - lazy basic table', (t) => {
+    const parsed = table`
+        id | name                               | rarity   | discount
+        ---|------------------------------------|----------|----------
+        1  | Lovely \\| Ancient U-shaped Minute | common   | 15%
+        2  | Big Cooking \`Book\`               | common   | 40%
+        3  | Lovely Metal Research              | uncommon |  5%
+        4  | Square Programming Thing           | rare
+    `;
+
+    t.deepEqual(parsed, expected, 'interprets correctly');
+
+    t.end();
+});
+
 test('Style - basic table', (t) => {
     const parsed = table`
         id | name                               | rarity   | discount
