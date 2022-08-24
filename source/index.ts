@@ -42,7 +42,6 @@ export const empty = <Table>create(divider);
  * @returns {Array<T>}
  */
 export const table = <Table & { empty: Table }>Object.assign(create(divider, defined), { empty });
-export default table;
 
 /**
  * Create a new table template literaral parser, mapping specified keys

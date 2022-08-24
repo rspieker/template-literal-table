@@ -8,7 +8,7 @@ export type FilterFunction = (...args: Array<unknown>) => boolean;
  * @returns {boolean}
  */
 export function divider(...values: Array<unknown>): boolean {
-	return values.every((value) => !/^-{2,}$/.test(String(value)));
+	return values.every((value) => !/^(?:-{2,}|:-+:?|:?-+:)$/.test(String(value)));
 }
 
 /**

@@ -2,20 +2,17 @@ import test from 'tape';
 import * as Table from '../../source';
 
 test('exports', (t) => {
-	t.deepEqual(Object.keys(Table), ['create', 'empty', 'table', 'mapper', 'default'], 'exports only "create", "empty", "table", "mapper" and "default"');
+	t.deepEqual(Object.keys(Table), ['create', 'empty', 'table', 'mapper'], 'exports only "create", "empty", "table" and "mapper"');
 
 	t.true(typeof Table.create === 'function', 'exports "create" function');
 	t.true(typeof Table.table === 'function', 'exports "table" function');
 	t.true(typeof Table.mapper === 'function', 'exports "mapper" function');
 	t.true(typeof Table.empty === 'function', 'exports "empty" function');
 
-	t.true(typeof Table.default === 'function', 'exports "default" function');
-	t.equal(Table.default, Table.table, 'exported "default" is the "table" function');
-
 	t.end();
 });
 
-const { default: tag } = Table;
+const { table: tag } = Table;
 
 test('default - parses full variable tables', (t) => {
 	const table = tag`
@@ -327,7 +324,7 @@ test('mapper - readme example', (t) => {
 	const mapped = mapper<{ string: string, number?: number, boolean: boolean, array: Array<string> }>(mapping);
 	const records = mapped`
 	 string | number | boolean | array  
-	 ------ | ------ | ------- | -------
+	 -------|--------|---------|--------
 	 foo    | 1      | yes     | a, b   
 	 bar    |        | no      | b, c, d
 	 baz    | 7      |         |        

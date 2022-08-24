@@ -14,7 +14,6 @@ The following functions are exported
 
 | name      | description                                                                                                           |
 | --------- | --------------------------------------------------------------------------------------------------------------------- |
-| `default` | The `default` export, this is `table`                                                                                 |
 | `table`   | Table parser, skips divider rows (cell only containing two or more `-` characters) and rows consisting of empty cells |
 | `empty`   | Table parser, skips divider rows, preserves rows consisting of empty cells                                            |
 | `create`  | Table parser creator, creates a new partser function with custom row filter functions                                 |
@@ -24,7 +23,7 @@ The following functions are exported
 The template literal syntax allows for a lot of flexibility, as any type of value can be formatted without losing the actual value by providing the `${value}` syntax. For fixed strings, you don't have to use the placeholder syntax if you don't care about its type (e.g. you cast it "manually" afterwards or its type is `string` anyway, which is what will be provided as).
 
 ```js
-const table = require('template-literal-table');
+const { table } = require('template-literal-table');
 
 const records = table`
 	foo  | bar  | baz 
@@ -43,7 +42,7 @@ const records = table`
 
 ## API
 
-### `table` (`default`)
+### `table`
 The `table` function is the recommended use, as it parses table structures as most likely intended
 
 ```js
@@ -188,6 +187,80 @@ In the table below some samples are shown:
  ${1} ${2}     | string    | (string) `'1 2'`   
  ```
 
+## Styles
+
+Tables in Markdown style come in different style, currently we support the following styles. Keep in mind that the cells of the header divider row have to be two characters minimum (e.g. `--`, `:-`, `-:`), this is to allow for cells to contain only `-` (which you could interpret as an explicit form of `N/A`)
+
+The most basic format, only the bare essentials
+
+```
+key1|key2|key3
+value1|value2|value3
+```
+
+Slightly improved readability using some more spacing around column separators
+
+```
+key1 | key2 | key3
+value1 | value2 | value3
+```
+
+As that doesn't really provide more readability, this format is preferred
+
+```
+key1   | key2   | key3
+-------|--------|--------
+value1 | value2 | value3
+```
+
+A common format provides a more table-like look and feel
+
+```
+| key1   | key2   | key3   |
+|--------|--------|--------|
+| value1 | value2 | value3 |
+```
+
+Some like to have more clear columns
+
+```
+| key1   | key2   | key3   |
+| ------ | ------ | ------ |
+| value1 | value2 | value3 |
+```
+
+Although ignored by the `table`-tag, alignment indicators are supported in the header divider
+
+```
+key1   | key2   | key3
+------:|:------:|:------
+value1 | value2 | value3
+```
+
+Can be used with spacing around the column separators
+
+```
+key1   | key2   | key3
+-----: | :----: | :-----
+value1 | value2 | value3
+```
+
+Also works in combination with borders
+
+```
+| key1   | key2   | key3   |
+|-------:|:------:|:-------|
+| value1 | value2 | value3 |
+```
+
+And with both borders and spacing around column separators
+```
+| key1   | key2   | key3   |
+| -----: | :----: | :----- |
+| value1 | value2 | value3 |
+```
+
+
 ## Tips
 
 ### Prettier
@@ -208,6 +281,11 @@ const Table = it.each`
   thanks | to    | @LucasSegersFabro
 `;
 ```
+
+### Escaping the pipe character (`|`)
+
+Besides the general character escaping rules in JavaScript/TypeScript strings, sometimes you really want a pipe symbol without resorting to a value (`${'|'}`), this can be done by adding two backslashes before a pipe character: `\\|`, it is actively enforced _not_ to be interpreted as column separator.
+
 
 # License
 

@@ -1,5 +1,23 @@
 import { Value } from './Value';
 import { Character } from './Character';
+import { ESCAPE, PIPE, ESCPIPE } from './Predefined';
+
+/**
+ * Convert a string into Characters and preserve escaped pipe symbols
+ *
+ * @param {string} input
+ * @return {*}  {(Array<Value)}
+ */
+function characters(input: string): Array<Value> {
+	const escaped = Array.from(input, (c) => Character.from(c)) as Array<Value>;
+	let escape: number;
+
+	while ((escape = escaped.indexOf(ESCAPE)) >= 0) {
+		(escaped[escape + 1] === PIPE) && escaped.splice(escape, 2, ESCPIPE);
+	}
+
+	return escaped;
+}
 
 /**
  * split a list of Value instances on every token
@@ -50,7 +68,7 @@ export function interleave(strings: TemplateStringsArray, ...values: Array<unkno
 	return strings.reduce(
 		(carry, value, index) =>
 			carry.concat(
-				Array.from(value, (c) => Character.from(c)),
+				characters(value),
 				index < values.length ? Value.from(values[index]) : []
 			),
 		[] as Array<Value>
