@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 
 ### Added
+### Changed
+### Fixed
+### Deprecated
+
+
+## [4.0.0] - 2022-08-24
+
+### Added
 - support for escaped pipe characters as cell value (`\\|`)
 - support for bordered tables (leading and/or trailing cell separator (`|`))
 - support for value alignment indicators in the header divider row (`:--`, `:--:`, `--:`)
@@ -65,7 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2018-12-24
 - Initial release
 
-[unreleased]: https://github.com/rspieker/template-literal-table/compare/v3.0.2...HEAD
+[unreleased]: https://github.com/rspieker/template-literal-table/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/rspieker/template-literal-table/compare/v3.0.2...v4.0.0
 [3.0.2]: https://github.com/rspieker/template-literal-table/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/rspieker/template-literal-table/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/rspieker/template-literal-table/compare/v2.0.0...v3.0.0

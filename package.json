@@ -1,6 +1,6 @@
 {
   "name": "template-literal-table",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Tagged template literal mapping markdown style tables into objects",
   "iife": "dist/stringify.js",
   "main": "dist/stringify.cjs.js",
