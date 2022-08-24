@@ -327,7 +327,7 @@ test('mapper - readme example', (t) => {
 	const mapped = mapper<{ string: string, number?: number, boolean: boolean, array: Array<string> }>(mapping);
 	const records = mapped`
 	 string | number | boolean | array  
-	 ------ | ------ | ------- | -------
+	 -------|--------|---------|--------
 	 foo    | 1      | yes     | a, b   
 	 bar    |        | no      | b, c, d
 	 baz    | 7      |         |        

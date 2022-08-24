@@ -145,10 +145,10 @@ test('Style - bordered aligned table', (t) => {
     const parsed = table`
         | id | name                               | rarity   | discount |
         |:--:|:-----------------------------------|----------|---------:|
-        | 1  | Lovely \\| Ancient U-shaped Minute | common   | 15%       |
-        | 2  | Big Cooking \`Book\`               | common   | 40%       |
-        | 3  | Lovely Metal Research              | uncommon |  5%       |
-        | 4  | Square Programming Thing           | rare     |           |
+        | 1  | Lovely \\| Ancient U-shaped Minute | common   | 15%      |
+        | 2  | Big Cooking \`Book\`               | common   | 40%      |
+        | 3  | Lovely Metal Research              | uncommon |  5%      |
+        | 4  | Square Programming Thing           | rare     |          |
     `;
 
     t.deepEqual(parsed, expected, 'interprets correctly');
