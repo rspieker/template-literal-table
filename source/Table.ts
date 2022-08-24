@@ -1,11 +1,7 @@
 import { Value } from './Value';
-import { Character } from './Character';
 import { split, trim } from './Collection';
 import { FilterFunction } from './Filters';
-
-const pipe = Character.from('|');
-const line = Character.from('\n');
-const space = Character.from(' ');
+import { NEWLINE, PIPE, SPACE } from './Predefined';
 
 /**
  * split a list of Value instances into "cells" for every pipe character,
@@ -16,8 +12,8 @@ const space = Character.from(' ');
  * @returns {Array<unknown>}
  */
 function cells(values: Array<Value>): Array<unknown> {
-	return split(values, pipe)
-		.map((cell) => trim(cell, space))
+	return split(values, PIPE)
+		.map((cell) => trim(cell, SPACE))
 		.map((cell) => cell.map(({ value }) => value))
 		.map((cell) => cell.length > 1 ? cell.join('') : cell[0])
 }
@@ -30,7 +26,7 @@ function cells(values: Array<Value>): Array<unknown> {
  * @returns {Array<Array<unknown>>}
  */
 function rows(values: Array<Value>, ...filters: Array<FilterFunction>): Array<Array<unknown>> {
-	return split(values, line)
+	return split(values, NEWLINE)
 		.map(cells)
 		.filter((row) => filters.every((filter) => filter(...row)));
 }
