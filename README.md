@@ -14,7 +14,6 @@ The following functions are exported
 
 | name      | description                                                                                                           |
 | --------- | --------------------------------------------------------------------------------------------------------------------- |
-| `default` | The `default` export, this is `table`                                                                                 |
 | `table`   | Table parser, skips divider rows (cell only containing two or more `-` characters) and rows consisting of empty cells |
 | `empty`   | Table parser, skips divider rows, preserves rows consisting of empty cells                                            |
 | `create`  | Table parser creator, creates a new partser function with custom row filter functions                                 |
@@ -24,7 +23,7 @@ The following functions are exported
 The template literal syntax allows for a lot of flexibility, as any type of value can be formatted without losing the actual value by providing the `${value}` syntax. For fixed strings, you don't have to use the placeholder syntax if you don't care about its type (e.g. you cast it "manually" afterwards or its type is `string` anyway, which is what will be provided as).
 
 ```js
-const table = require('template-literal-table');
+const { table } = require('template-literal-table');
 
 const records = table`
 	foo  | bar  | baz 
@@ -43,7 +42,7 @@ const records = table`
 
 ## API
 
-### `table` (`default`)
+### `table`
 The `table` function is the recommended use, as it parses table structures as most likely intended
 
 ```js

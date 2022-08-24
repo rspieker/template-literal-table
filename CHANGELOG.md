@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - support for value alignment indicators in the header divider row (`:--`, `:--:`, `--:`)
 
 ### Changed
+- BREAKING: Removed the default export
 - BREAKING: The support for the bordered table syntax is a breaking change as one could actively rely on the prior side effect of having a key named `'undefined'` with the value `undefined` (unlikely but still breaking)
 - Returned records are now based on `Object.create(null)` instead of `{}`, this does not change behavior but does change the prototype chain (unlikely to be used that way, but possible)
 
