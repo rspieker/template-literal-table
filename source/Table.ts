@@ -41,7 +41,7 @@ function rows(values: Array<Value>, ...filters: Array<FilterFunction>): Array<Ar
  */
 function populate<T>(header: Array<unknown>, list: Array<Array<unknown>>): Array<T> {
 	return list.map((values) =>
-		header.reduce((carry: T, name: unknown, index: number) => ({ ...carry, [String(name)]: values[index] }), {} as T)
+		header.reduce((carry: T, name: unknown, index: number) => ({ ...carry, [String(name)]: values[index] }), Object.create(null) as T)
 	) as Array<T>;
 }
 
