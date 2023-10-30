@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 
+## [4.0.2] - 2023-10-30
+
+### Fixed
+- using escape sequences (multitudes of \) no longer causes an infinite loop
+
+
 ## [4.0.1] - 2023-10-17
 
 ### Changed
@@ -79,8 +85,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2018-12-24
 - Initial release
 
-[unreleased]: https://github.com/rspieker/template-literal-table/compare/v4.0.1...HEAD
-[4.0.0]: https://github.com/rspieker/template-literal-table/compare/v4.0.0...v4.0.1
+
+[unreleased]: https://github.com/rspieker/template-literal-table/compare/v4.0.2...HEAD
+[4.0.2]: https://github.com/rspieker/template-literal-table/compare/v4.0.1...v4.0.2
+[4.0.1]: https://github.com/rspieker/template-literal-table/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/rspieker/template-literal-table/compare/v3.0.2...v4.0.0
 [3.0.2]: https://github.com/rspieker/template-literal-table/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/rspieker/template-literal-table/compare/v3.0.0...v3.0.1
