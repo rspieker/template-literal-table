@@ -10,10 +10,11 @@ import { ESCAPE, PIPE, ESCPIPE } from './Predefined';
  */
 function characters(input: string): Array<Value> {
 	const escaped = Array.from(input, (c) => Character.from(c)) as Array<Value>;
-	let escape: number;
+	let escape: number = 0;
 
-	while ((escape = escaped.indexOf(ESCAPE)) >= 0) {
+	while ((escape = escaped.indexOf(ESCAPE, escape)) >= 0) {
 		(escaped[escape + 1] === PIPE) && escaped.splice(escape, 2, ESCPIPE);
+		++escape;
 	}
 
 	return escaped;
