@@ -339,3 +339,33 @@ test('mapper - readme example', (t) => {
 
 	t.end();
 });
+
+test('parser - does not hang on escape characters', async (t) => {
+	const expected = [
+		{ foo: '[AZ]', bar: 'B', baz: '1' },
+		{ foo: '[A Z]', bar: 'B', baz: '2' },
+		{ foo: '[A\\tZ]', bar: 'B', baz: '3' },
+		{ foo: '[A\\ Z]', bar: 'B', baz: '4' },
+		{ foo: '[A\\\\tZ]', bar: 'B', baz: '5' },
+		{ foo: '[A\\\\ Z]', bar: 'B', baz: '6' },
+		{ foo: '[A\\\\\\tZ]', bar: 'B', baz: '7' },
+	];
+	const result = await Promise.race([
+		new Promise((resolve) => setTimeout(resolve, 1000, 'timeout')),
+		tag`
+			foo         | bar | baz
+			------------|-----|-----
+			[AZ]        | B   | 1
+			[A\tZ]      | B   | 2
+			[A\\tZ]     | B   | 3
+			[A\\\tZ]    | B   | 4
+			[A\\\\tZ]   | B   | 5
+			[A\\\\\tZ]  | B   | 6
+			[A\\\\\\tZ] | B   | 7
+		`
+	]);
+
+	t.deepEqual(result, expected, 'parses the defined table');
+
+	t.end();
+});
