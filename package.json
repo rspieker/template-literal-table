@@ -1,67 +1,67 @@
 {
-  "name": "template-literal-table",
-  "version": "4.0.2",
-  "description": "Tagged template literal mapping markdown style tables into objects",
-  "iife": "dist/stringify.js",
-  "main": "dist/stringify.cjs.js",
-  "module": "dist/stringify.es.js",
-  "types": "dist/stringify.d.ts",
-  "scripts": {
-    "test": "run-script-os",
-    "test:nix": "ts-node node_modules/tape/bin/tape 'test/**/*.ts'",
-    "test:win32": "ts-node node_modules/tape/bin/tape test/**/*.ts",
-    "test:coverage": "run-script-os",
-    "test:coverage:nix": "nyc --reporter=html --require ts-node/register tape 'test/**/*.ts' | tap-arc",
-    "test:coverage:win32": "nyc --reporter=html --require ts-node/register tape test/**/*.ts | tap-arc",
-    "test:pretty": "run-script-os",
-    "test:pretty:nix": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-arc",
-    "test:pretty:win32": "nyc --require ts-node/register tape test/**/*.ts | tap-arc",
-    "prebuild": "tsc --declarationDir temp --declaration true --emitDeclarationOnly true",
-    "build": "rollup -c rollup.config.mjs",
-    "postbuild": "rm -rf temp",
-    "prepublish": "npm run build"
-  },
-  "homepage": "https://github.com/rspieker/template-literal-table",
-  "bugs": "https://github.com/rspieker/template-literal-table/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rspieker/template-literal-table.git"
-  },
-  "keywords": [
-    "es6 template",
-    "template literal",
-    "markdown table",
-    "table"
-  ],
-  "author": "Rogier Spieker <rogier+npm@konfirm.eu>",
-  "license": "MIT",
-  "engines": {
-    "node": ">=8"
-  },
-  "files": [
-    "dist/*",
-    "source/*",
-    "CHANGELOG.md",
-    "LICENSE",
-    "package.json",
-    "README.md",
-    "tsconfig.json"
-  ],
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@types/tape": "^5.8.1",
-    "nyc": "^18.0.0",
-    "rollup": "^4.60.0",
-    "rollup-plugin-dts": "^6.4.1",
-    "run-script-os": "^1.1.6",
-    "tap-arc": "^1.3.2",
-    "tape": "^5.9.0",
-    "template-literal-each": "^3.0.1",
-    "ts-node": "^10.9.2",
-    "tslib": "^2.8.1",
-    "typescript": "^6.0.2"
-  }
+	"name": "template-literal-table",
+	"version": "4.0.2",
+	"description": "Tagged template literal mapping markdown style tables into objects",
+	"iife": "dist/stringify.js",
+	"main": "dist/stringify.cjs.js",
+	"module": "dist/stringify.es.js",
+	"types": "dist/stringify.d.ts",
+	"scripts": {
+		"test": "run-script-os",
+		"test:nix": "ts-node node_modules/tape/bin/tape 'test/**/*.ts'",
+		"test:win32": "ts-node node_modules/tape/bin/tape test/**/*.ts",
+		"test:coverage": "run-script-os",
+		"test:coverage:nix": "nyc --reporter=html --require ts-node/register tape 'test/**/*.ts' | tap-arc",
+		"test:coverage:win32": "nyc --reporter=html --require ts-node/register tape test/**/*.ts | tap-arc",
+		"test:pretty": "run-script-os",
+		"test:pretty:nix": "nyc --require ts-node/register tape 'test/**/*.ts' | tap-arc",
+		"test:pretty:win32": "nyc --require ts-node/register tape test/**/*.ts | tap-arc",
+		"prebuild": "tsc --declarationDir temp --declaration true --emitDeclarationOnly true",
+		"build": "rollup -c rollup.config.mjs",
+		"postbuild": "rm -rf temp",
+		"prepublish": "npm run build"
+	},
+	"homepage": "https://github.com/rspieker/template-literal-table",
+	"bugs": "https://github.com/rspieker/template-literal-table/issues",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rspieker/template-literal-table.git"
+	},
+	"keywords": [
+		"es6 template",
+		"template literal",
+		"markdown table",
+		"table"
+	],
+	"author": "Rogier Spieker <rogier+npm@konfirm.eu>",
+	"license": "MIT",
+	"engines": {
+		"node": ">=18"
+	},
+	"files": [
+		"dist/*",
+		"source/*",
+		"CHANGELOG.md",
+		"LICENSE",
+		"package.json",
+		"README.md",
+		"tsconfig.json"
+	],
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^29.0.2",
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@rollup/plugin-terser": "^1.0.0",
+		"@rollup/plugin-typescript": "^12.3.0",
+		"@types/tape": "^5.8.1",
+		"nyc": "^18.0.0",
+		"rollup": "^4.60.0",
+		"rollup-plugin-dts": "^6.4.1",
+		"run-script-os": "^1.1.6",
+		"tap-arc": "^1.3.2",
+		"tape": "^5.9.0",
+		"template-literal-each": "^3.0.1",
+		"ts-node": "^10.9.2",
+		"tslib": "^2.8.1",
+		"typescript": "^6.0.2"
+	}
 }
