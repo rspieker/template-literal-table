@@ -1,12 +1,12 @@
 {
-  "include": [
-    "source/index.ts"
-  ],
-  "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "outDir": "dist/",
-    "target": "ES2018",
-    "moduleResolution": "Node"
-  }
+	"include": ["source/index.ts"],
+	"compilerOptions": {
+		"declaration": true,
+		"esModuleInterop": true,
+		"outDir": "dist/",
+		"rootDir": "./source",
+		"target": "ES2018",
+		"moduleResolution": "Node",
+		"ignoreDeprecations": "6.0",
+	},
 }

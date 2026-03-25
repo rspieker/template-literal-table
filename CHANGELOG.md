@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 
 ### Added
+- typescript typing of table output
+
 ### Changed
+- updated dependencies
+
 ### Fixed
 ### Deprecated
 
