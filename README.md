@@ -70,6 +70,22 @@ const records = table`
 //  ]
 ```
 
+**TypeScript** — you can pass an explicit type parameter at the call site to have the result typed as `Array<T>` without a separate cast:
+
+```ts
+import { table } from 'template-literal-table';
+
+type Row = { foo: number; bar: number; baz: number };
+
+const records = table<Row>`
+	foo  | bar  | baz
+	-----|------|-----
+	${1} | ${2} | ${4}
+	${2} | ${4} | ${8}
+`;
+// records is Array<Row>
+```
+
 ### `empty`
 Like the `table` function, with the difference that empty lines will be preserved, do note that any newline in the table structure will become a new "row", regardless of the intention. This means that a trailing newline (as show below) will also result in a record with undefined values.
 

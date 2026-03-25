@@ -2,7 +2,11 @@ import test from 'tape';
 import * as Table from '../../source';
 
 test('exports', (t) => {
-	t.deepEqual(Object.keys(Table), ['create', 'empty', 'table', 'mapper'], 'exports only "create", "empty", "table" and "mapper"');
+	t.deepEqual(
+		Object.keys(Table),
+		['empty', 'table', 'create', 'mapper'],
+		'exports only "create", "empty", "table" and "mapper"',
+	);
 
 	t.true(typeof Table.create === 'function', 'exports "create" function');
 	t.true(typeof Table.table === 'function', 'exports "table" function');
@@ -25,13 +29,33 @@ test('default - parses full variable tables', (t) => {
 		`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items')
+	t.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(table[0], { letter: 'a', index: 1 }, `matches { letter: 'a', index: 1 }, `);
-	t.deepEqual(table[1], { letter: 'b', index: 2 }, `matches { letter: 'b', index: 2 }, `);
-	t.deepEqual(table[2], { letter: 'c', index: 3 }, `matches { letter: 'c', index: 3 }, `);
-	t.deepEqual(table[3], { letter: 'd', index: 4 }, `matches { letter: 'd', index: 4 }, `);
-	t.deepEqual(table[4], { letter: 'e', index: 5 }, `matches { letter: 'e', index: 5 }, `);
+	t.deepEqual(
+		table[0],
+		{ letter: 'a', index: 1 },
+		`matches { letter: 'a', index: 1 }, `,
+	);
+	t.deepEqual(
+		table[1],
+		{ letter: 'b', index: 2 },
+		`matches { letter: 'b', index: 2 }, `,
+	);
+	t.deepEqual(
+		table[2],
+		{ letter: 'c', index: 3 },
+		`matches { letter: 'c', index: 3 }, `,
+	);
+	t.deepEqual(
+		table[3],
+		{ letter: 'd', index: 4 },
+		`matches { letter: 'd', index: 4 }, `,
+	);
+	t.deepEqual(
+		table[4],
+		{ letter: 'e', index: 5 },
+		`matches { letter: 'e', index: 5 }, `,
+	);
 
 	t.end();
 });
@@ -47,13 +71,33 @@ test('default - parses full static tables', (t) => {
 		`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items')
+	t.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(table[0], { letter: 'a', index: '1' }, `matches { letter: 'a', index: '1' }`);
-	t.deepEqual(table[1], { letter: 'b', index: '2' }, `matches { letter: 'b', index: '2' }`);
-	t.deepEqual(table[2], { letter: 'c', index: '3' }, `matches { letter: 'c', index: '3' }`);
-	t.deepEqual(table[3], { letter: 'd', index: '4' }, `matches { letter: 'd', index: '4' }`);
-	t.deepEqual(table[4], { letter: 'e', index: '5' }, `matches { letter: 'e', index: '5' }`);
+	t.deepEqual(
+		table[0],
+		{ letter: 'a', index: '1' },
+		`matches { letter: 'a', index: '1' }`,
+	);
+	t.deepEqual(
+		table[1],
+		{ letter: 'b', index: '2' },
+		`matches { letter: 'b', index: '2' }`,
+	);
+	t.deepEqual(
+		table[2],
+		{ letter: 'c', index: '3' },
+		`matches { letter: 'c', index: '3' }`,
+	);
+	t.deepEqual(
+		table[3],
+		{ letter: 'd', index: '4' },
+		`matches { letter: 'd', index: '4' }`,
+	);
+	t.deepEqual(
+		table[4],
+		{ letter: 'e', index: '5' },
+		`matches { letter: 'e', index: '5' }`,
+	);
 
 	t.end();
 });
@@ -69,13 +113,33 @@ test('default - parses mixed variable and static tables', (t) => {
 		`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items')
+	t.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(table[0], { letter: 'a', index: '1' }, `matches { letter: 'a', index: '1' }`);
-	t.deepEqual(table[1], { letter: 'b', index: 2 }, `matches { letter: 'b', index: 2 }`);
-	t.deepEqual(table[2], { letter: 'c', index: '3' }, `matches { letter: 'c', index: '3' }`);
-	t.deepEqual(table[3], { letter: 'd', index: 4 }, `matches { letter: 'd', index: 4 }`);
-	t.deepEqual(table[4], { letter: 'e', index: 5 }, `matches { letter: 'e', index: 5 }`);
+	t.deepEqual(
+		table[0],
+		{ letter: 'a', index: '1' },
+		`matches { letter: 'a', index: '1' }`,
+	);
+	t.deepEqual(
+		table[1],
+		{ letter: 'b', index: 2 },
+		`matches { letter: 'b', index: 2 }`,
+	);
+	t.deepEqual(
+		table[2],
+		{ letter: 'c', index: '3' },
+		`matches { letter: 'c', index: '3' }`,
+	);
+	t.deepEqual(
+		table[3],
+		{ letter: 'd', index: 4 },
+		`matches { letter: 'd', index: 4 }`,
+	);
+	t.deepEqual(
+		table[4],
+		{ letter: 'e', index: 5 },
+		`matches { letter: 'e', index: 5 }`,
+	);
 
 	t.end();
 });
@@ -91,13 +155,33 @@ test('default - stringifies cells', (t) => {
 		`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items')
+	t.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(table[0], { letter: 'a b', index: '1' }, `matches { letter: 'a b', index: '1' }`);
-	t.deepEqual(table[1], { letter: 'b c', index: 'true false' }, `matches { letter: 'b c', index: 'true false' }`);
-	t.deepEqual(table[2], { letter: 'c d', index: false }, `matches { letter: 'c d', index: false }`);
-	t.deepEqual(table[3], { letter: 'd e', index: true }, `matches { letter: 'd e', index: true }`);
-	t.deepEqual(table[4], { letter: 'e f', index: '5 7' }, `matches { letter: 'e f', index: '5 7' }`);
+	t.deepEqual(
+		table[0],
+		{ letter: 'a b', index: '1' },
+		`matches { letter: 'a b', index: '1' }`,
+	);
+	t.deepEqual(
+		table[1],
+		{ letter: 'b c', index: 'true false' },
+		`matches { letter: 'b c', index: 'true false' }`,
+	);
+	t.deepEqual(
+		table[2],
+		{ letter: 'c d', index: false },
+		`matches { letter: 'c d', index: false }`,
+	);
+	t.deepEqual(
+		table[3],
+		{ letter: 'd e', index: true },
+		`matches { letter: 'd e', index: true }`,
+	);
+	t.deepEqual(
+		table[4],
+		{ letter: 'e f', index: '5 7' },
+		`matches { letter: 'e f', index: '5 7' }`,
+	);
 
 	t.end();
 });
@@ -114,13 +198,33 @@ test('default - ignores divider rows', (t) => {
 		`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items')
+	t.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(table[0], { letter: 'a', index: '1' }, `matches { letter: 'a', index: '1' }`);
-	t.deepEqual(table[1], { letter: 'b', index: 2 }, `matches { letter: 'b', index: 2 }`);
-	t.deepEqual(table[2], { letter: 'c', index: '3' }, `matches { letter: 'c', index: '3' }`);
-	t.deepEqual(table[3], { letter: 'd', index: 4 }, `matches { letter: 'd', index: 4 }`);
-	t.deepEqual(table[4], { letter: 'e', index: 5 }, `matches { letter: 'e', index: 5 }`);
+	t.deepEqual(
+		table[0],
+		{ letter: 'a', index: '1' },
+		`matches { letter: 'a', index: '1' }`,
+	);
+	t.deepEqual(
+		table[1],
+		{ letter: 'b', index: 2 },
+		`matches { letter: 'b', index: 2 }`,
+	);
+	t.deepEqual(
+		table[2],
+		{ letter: 'c', index: '3' },
+		`matches { letter: 'c', index: '3' }`,
+	);
+	t.deepEqual(
+		table[3],
+		{ letter: 'd', index: 4 },
+		`matches { letter: 'd', index: 4 }`,
+	);
+	t.deepEqual(
+		table[4],
+		{ letter: 'e', index: 5 },
+		`matches { letter: 'e', index: 5 }`,
+	);
 
 	t.end();
 });
@@ -131,9 +235,13 @@ test('default - does not need to start with a newline', (t) => {
 	                 `;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 1, 'has 1 item')
+	t.equal(table.length, 1, 'has 1 item');
 
-	t.deepEqual(table[0], { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }, `matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`);
+	t.deepEqual(
+		table[0],
+		{ foo: 'a', bar: 'b', baz: 'c', qux: 'd' },
+		`matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`,
+	);
 
 	t.end();
 });
@@ -144,9 +252,13 @@ test('default - does not need to end with a newline', (t) => {
 	              ${'a'} | ${'b'} | ${'c'} | ${'d'}`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 1, 'has 1 item')
+	t.equal(table.length, 1, 'has 1 item');
 
-	t.deepEqual(table[0], { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }, `matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`);
+	t.deepEqual(
+		table[0],
+		{ foo: 'a', bar: 'b', baz: 'c', qux: 'd' },
+		`matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`,
+	);
 
 	t.end();
 });
@@ -156,9 +268,13 @@ test('default - does not need to start nor end with a newline', (t) => {
 	                    ${'a'} | ${'b'} | ${'c'} | ${'d'}`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 1, 'has 1 item')
+	t.equal(table.length, 1, 'has 1 item');
 
-	t.deepEqual(table[0], { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }, `matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`);
+	t.deepEqual(
+		table[0],
+		{ foo: 'a', bar: 'b', baz: 'c', qux: 'd' },
+		`matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`,
+	);
 
 	t.end();
 });
@@ -177,13 +293,33 @@ test('default - treats empty cells as undefined, empty rows are ignored', (t) =>
 				|`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items')
+	t.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(table[0], { foo: und, bar: '2', baz: '3', qux: '4' }, `matches { foo: undefined, bar: '2', baz: '3', qux: '4' }`);
-	t.deepEqual(table[1], { foo: '1', bar: und, baz: '3', qux: '4' }, `matches { foo: '1', bar: undefined, baz: '3', qux: '4' }`);
-	t.deepEqual(table[2], { foo: '1', bar: '2', baz: und, qux: '4' }, `matches { foo: '1', bar: '2', baz: undefined, qux: '4' }`);
-	t.deepEqual(table[3], { foo: '1', bar: '2', baz: '3', qux: und }, `matches { foo: '1', bar: '2', baz: '3', qux: undefined }`);
-	t.deepEqual(table[4], { foo: '1', bar: '2', baz: '3', qux: '4' }, `matches { foo: '1', bar: '2', baz: '3', qux: '4' }`);
+	t.deepEqual(
+		table[0],
+		{ foo: und, bar: '2', baz: '3', qux: '4' },
+		`matches { foo: undefined, bar: '2', baz: '3', qux: '4' }`,
+	);
+	t.deepEqual(
+		table[1],
+		{ foo: '1', bar: und, baz: '3', qux: '4' },
+		`matches { foo: '1', bar: undefined, baz: '3', qux: '4' }`,
+	);
+	t.deepEqual(
+		table[2],
+		{ foo: '1', bar: '2', baz: und, qux: '4' },
+		`matches { foo: '1', bar: '2', baz: undefined, qux: '4' }`,
+	);
+	t.deepEqual(
+		table[3],
+		{ foo: '1', bar: '2', baz: '3', qux: und },
+		`matches { foo: '1', bar: '2', baz: '3', qux: undefined }`,
+	);
+	t.deepEqual(
+		table[4],
+		{ foo: '1', bar: '2', baz: '3', qux: '4' },
+		`matches { foo: '1', bar: '2', baz: '3', qux: '4' }`,
+	);
 
 	t.end();
 });
@@ -202,16 +338,48 @@ test('empty - treats empty cells as undefined, preserves empty rows', (t) => {
 				 |`;
 
 	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 8, 'has 8 items')
+	t.equal(table.length, 8, 'has 8 items');
 
-	t.deepEqual(table[0], { foo: und, bar: 2, baz: 3, qux: 4 }, `matches { foo: undefined, bar: 2, baz: 3, qux: 4 }`);
-	t.deepEqual(table[1], { foo: 1, bar: und, baz: 3, qux: 4 }, `matches { foo: 1, bar: undefined, baz: 3, qux: 4 }`);
-	t.deepEqual(table[2], { foo: 1, bar: 2, baz: und, qux: 4 }, `matches { foo: 1, bar: 2, baz: undefined, qux: 4 }`);
-	t.deepEqual(table[3], { foo: 1, bar: 2, baz: 3, qux: und }, `matches { foo: 1, bar: 2, baz: 3, qux: undefined }`);
-	t.deepEqual(table[4], { foo: 1, bar: 2, baz: 3, qux: 4 }, `matches { foo: 1, bar: 2, baz: 3, qux: 4 }`);
-	t.deepEqual(table[5], { foo: und, bar: und, baz: und, qux: und }, `matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`);
-	t.deepEqual(table[6], { foo: und, bar: und, baz: und, qux: und }, `matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`);
-	t.deepEqual(table[7], { foo: und, bar: und, baz: und, qux: und }, `matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`);
+	t.deepEqual(
+		table[0],
+		{ foo: und, bar: 2, baz: 3, qux: 4 },
+		`matches { foo: undefined, bar: 2, baz: 3, qux: 4 }`,
+	);
+	t.deepEqual(
+		table[1],
+		{ foo: 1, bar: und, baz: 3, qux: 4 },
+		`matches { foo: 1, bar: undefined, baz: 3, qux: 4 }`,
+	);
+	t.deepEqual(
+		table[2],
+		{ foo: 1, bar: 2, baz: und, qux: 4 },
+		`matches { foo: 1, bar: 2, baz: undefined, qux: 4 }`,
+	);
+	t.deepEqual(
+		table[3],
+		{ foo: 1, bar: 2, baz: 3, qux: und },
+		`matches { foo: 1, bar: 2, baz: 3, qux: undefined }`,
+	);
+	t.deepEqual(
+		table[4],
+		{ foo: 1, bar: 2, baz: 3, qux: 4 },
+		`matches { foo: 1, bar: 2, baz: 3, qux: 4 }`,
+	);
+	t.deepEqual(
+		table[5],
+		{ foo: und, bar: und, baz: und, qux: und },
+		`matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`,
+	);
+	t.deepEqual(
+		table[6],
+		{ foo: und, bar: und, baz: und, qux: und },
+		`matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`,
+	);
+	t.deepEqual(
+		table[7],
+		{ foo: und, bar: und, baz: und, qux: und },
+		`matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`,
+	);
 
 	t.end();
 });
@@ -238,7 +406,13 @@ test('default - preserves types as provided', (t) => {
 });
 
 test('map - casts values', (t) => {
-	const map = Table.mapper<{ foo: number, bar: boolean, baz: Array<string> }>({ foo: Number, bar: (v): boolean => Boolean(Number(v)), baz: (v) => [String(v)] });
+	const map = Table.mapper<{ foo: number; bar: boolean; baz: Array<string> }>(
+		{
+			foo: Number,
+			bar: (v): boolean => Boolean(Number(v)),
+			baz: (v) => [String(v)],
+		},
+	);
 	const records = map`
 		foo | bar | baz
 		----|-----|-----
@@ -294,7 +468,10 @@ test('create - custom filter', (t) => {
 });
 
 test('create - fourth (readme example)', (t) => {
-	const fourth = Table.create((...values: Array<unknown>) => Boolean(values[3]) && !/^--+$/.test(String(values[3])));
+	const fourth = Table.create(
+		(...values: Array<unknown>) =>
+			Boolean(values[3]) && !/^--+$/.test(String(values[3])),
+	);
 	const table = fourth`
 		one | two | three | four
 		----|-----|-------|------
@@ -317,23 +494,34 @@ test('create - fourth (readme example)', (t) => {
 test('mapper - readme example', (t) => {
 	const { mapper } = Table;
 	const mapping = {
-		number: (value: unknown) => value ? Number(value) : undefined,
+		number: (value: unknown) => (value ? Number(value) : undefined),
 		boolean: (value: unknown) => value === 'yes',
-		array: (value: unknown) => value ? String(value).split(/\s*,\s*/) : [],
+		array: (value: unknown) =>
+			value ? String(value).split(/\s*,\s*/) : [],
 	};
-	const mapped = mapper<{ string: string, number?: number, boolean: boolean, array: Array<string> }>(mapping);
+	const mapped = mapper<{
+		string: string;
+		number?: number;
+		boolean: boolean;
+		array: Array<string>;
+	}>(mapping);
 	const records = mapped`
-	 string | number | boolean | array  
+	 string | number | boolean | array
 	 -------|--------|---------|--------
-	 foo    | 1      | yes     | a, b   
+	 foo    | 1      | yes     | a, b
 	 bar    |        | no      | b, c, d
-	 baz    | 7      |         |        
+	 baz    | 7      |         |
 	 `;
 	const expected = [
 		{ string: 'foo', number: 1, boolean: true, array: ['a', 'b'] },
-		{ string: 'bar', number: undefined, boolean: false, array: ['b', 'c', 'd'] },
+		{
+			string: 'bar',
+			number: undefined,
+			boolean: false,
+			array: ['b', 'c', 'd'],
+		},
 		{ string: 'baz', number: 7, boolean: false, array: [] },
-	]
+	];
 
 	t.deepEqual(records, expected, 'maps the values');
 
@@ -362,7 +550,7 @@ test('parser - does not hang on escape characters', async (t) => {
 			[A\\\\tZ]   | B   | 5
 			[A\\\\\tZ]  | B   | 6
 			[A\\\\\\tZ] | B   | 7
-		`
+		`,
 	]);
 
 	t.deepEqual(result, expected, 'parses the defined table');
