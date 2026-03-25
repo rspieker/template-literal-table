@@ -116,6 +116,22 @@ const records = empty`
 //  ]
 ```
 
+**TypeScript** — you can pass an explicit type parameter at the call site to have the result typed as `Array<T>` without a separate cast:
+
+```ts
+import { empty } from 'template-literal-table';
+
+type Row = { foo: number; bar: number; baz: number };
+
+const records = empty<Row>`
+	foo  | bar  | baz
+	-----|------|-----
+	${1} | ${2} | ${4}
+	${2} | ${4} | ${8}
+`;
+// records is Array<Row>
+```
+
 ### `create`
 The `table` and `empty` function should cover most scenarios, though sometimes one needs different filters to be applied to the records passed in. For this purpose the `create` function exists, it allows any number of filters to be specified, which will be applied _before_ the records are created from the values, meaning the filter functions will receive all values as argument.
 
