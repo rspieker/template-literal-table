@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0](https://github.com/rspieker/template-literal-table/compare/v4.1.0...v4.2.0) (2026-03-25)
+
+
+### Features
+
+* improved typescript typing ([5b17622](https://github.com/rspieker/template-literal-table/commit/5b17622c70411df09c64ea99a237f72fe3ef23c6))
+
 ## [4.1.0](https://github.com/rspieker/template-literal-table/compare/template-literal-table-v4.0.2...template-literal-table-v4.1.0) (2026-03-25)
 
 
