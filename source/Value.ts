@@ -1,3 +1,6 @@
+// Map keys use SameValueZero, which treats -0 and 0 as the same key
+const NEGATIVE_ZERO = Symbol('negative-zero');
+
 /**
  * Representation of a single value
  *
@@ -25,10 +28,12 @@ export class Value {
 	 * @memberof Value
 	 */
 	static from(value: unknown): Value {
-		if (!this.cache.has(value)) {
-			this.cache.set(value, new this(value));
+		const key = Object.is(value, -0) ? NEGATIVE_ZERO : value;
+
+		if (!this.cache.has(key)) {
+			this.cache.set(key, new this(value));
 		}
 
-		return this.cache.get(value) as Value;
+		return this.cache.get(key) as Value;
 	}
 }

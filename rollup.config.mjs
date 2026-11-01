@@ -1,6 +1,5 @@
 import { readFileSync } from 'node:fs';
 import typescript from '@rollup/plugin-typescript';
-import { nodeResolve as resolve } from '@rollup/plugin-node-resolve';
 import common from '@rollup/plugin-commonjs';
 import { default as terser } from '@rollup/plugin-terser';
 import declaration from 'rollup-plugin-dts'
@@ -32,7 +31,7 @@ export default [
 			{ file: iife, format: 'iife' },
 			{ file: module, format: 'es' },
 		),
-		plugins: [resolve(), common(), typescript(), common()],
+		plugins: [common(), typescript(), common()],
 	},
 	{
 		input: 'temp/index.d.ts',
