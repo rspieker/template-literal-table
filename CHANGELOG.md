@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.1](https://github.com/rspieker/template-literal-table/compare/v4.2.0...v4.2.1) (2026-11-01)
+
+
+### Bug Fixes
+
+* distinguish -0 from 0 in value cache ([3712f32](https://github.com/rspieker/template-literal-table/commit/3712f3270902cbb9c714a2c384400f4945d8938b))
+* distinguish -0 from 0 in value cache ([52d58bd](https://github.com/rspieker/template-literal-table/commit/52d58bd6c202003735071f2b5cc6065e058ff228))
+
 ## [4.2.0](https://github.com/rspieker/template-literal-table/compare/v4.1.0...v4.2.0) (2026-03-25)
 
 
