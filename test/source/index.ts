@@ -1,24 +1,23 @@
-import test from 'tape';
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
 import * as Table from '../../source';
 
-test('exports', (t) => {
-	t.deepEqual(
-		Object.keys(Table),
-		['empty', 'table', 'create', 'mapper'],
+test('exports', () => {
+	assert.deepStrictEqual(
+		Object.keys(Table).sort(),
+		['create', 'empty', 'mapper', 'table'],
 		'exports only "create", "empty", "table" and "mapper"',
 	);
 
-	t.true(typeof Table.create === 'function', 'exports "create" function');
-	t.true(typeof Table.table === 'function', 'exports "table" function');
-	t.true(typeof Table.mapper === 'function', 'exports "mapper" function');
-	t.true(typeof Table.empty === 'function', 'exports "empty" function');
-
-	t.end();
+	assert.ok(typeof Table.create === 'function', 'exports "create" function');
+	assert.ok(typeof Table.table === 'function', 'exports "table" function');
+	assert.ok(typeof Table.mapper === 'function', 'exports "mapper" function');
+	assert.ok(typeof Table.empty === 'function', 'exports "empty" function');
 });
 
 const { table: tag } = Table;
 
-test('default - parses full variable tables', (t) => {
+test('default - parses full variable tables', () => {
 	const table = tag`
 			letter  | index
 			${'a'}  | ${1}
@@ -28,39 +27,37 @@ test('default - parses full variable tables', (t) => {
 			${'e'}  | ${5}
 		`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ letter: 'a', index: 1 },
 		`matches { letter: 'a', index: 1 }, `,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ letter: 'b', index: 2 },
 		`matches { letter: 'b', index: 2 }, `,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ letter: 'c', index: 3 },
 		`matches { letter: 'c', index: 3 }, `,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ letter: 'd', index: 4 },
 		`matches { letter: 'd', index: 4 }, `,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ letter: 'e', index: 5 },
 		`matches { letter: 'e', index: 5 }, `,
 	);
-
-	t.end();
 });
 
-test('default - parses full static tables', (t) => {
+test('default - parses full static tables', () => {
 	const table = tag`
 			letter | index
 			a      | 1
@@ -70,39 +67,37 @@ test('default - parses full static tables', (t) => {
 			e      | 5
 		`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ letter: 'a', index: '1' },
 		`matches { letter: 'a', index: '1' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ letter: 'b', index: '2' },
 		`matches { letter: 'b', index: '2' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ letter: 'c', index: '3' },
 		`matches { letter: 'c', index: '3' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ letter: 'd', index: '4' },
 		`matches { letter: 'd', index: '4' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ letter: 'e', index: '5' },
 		`matches { letter: 'e', index: '5' }`,
 	);
-
-	t.end();
 });
 
-test('default - parses mixed variable and static tables', (t) => {
+test('default - parses mixed variable and static tables', () => {
 	const table = tag`
 			letter  | index
 			a       | 1
@@ -112,39 +107,37 @@ test('default - parses mixed variable and static tables', (t) => {
 			${'e'}  | ${5}
 		`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ letter: 'a', index: '1' },
 		`matches { letter: 'a', index: '1' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ letter: 'b', index: 2 },
 		`matches { letter: 'b', index: 2 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ letter: 'c', index: '3' },
 		`matches { letter: 'c', index: '3' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ letter: 'd', index: 4 },
 		`matches { letter: 'd', index: 4 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ letter: 'e', index: 5 },
 		`matches { letter: 'e', index: 5 }`,
 	);
-
-	t.end();
 });
 
-test('default - stringifies cells', (t) => {
+test('default - stringifies cells', () => {
 	const table = tag`
 			letter        | index
 			a b           | 1
@@ -154,39 +147,37 @@ test('default - stringifies cells', (t) => {
 			${'e'} ${'f'} | ${5} ${7}
 		`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ letter: 'a b', index: '1' },
 		`matches { letter: 'a b', index: '1' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ letter: 'b c', index: 'true false' },
 		`matches { letter: 'b c', index: 'true false' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ letter: 'c d', index: false },
 		`matches { letter: 'c d', index: false }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ letter: 'd e', index: true },
 		`matches { letter: 'd e', index: true }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ letter: 'e f', index: '5 7' },
 		`matches { letter: 'e f', index: '5 7' }`,
 	);
-
-	t.end();
 });
 
-test('default - ignores divider rows', (t) => {
+test('default - ignores divider rows', () => {
 	const table = tag`
 			letter  | index
 			--------|-------
@@ -197,89 +188,81 @@ test('default - ignores divider rows', (t) => {
 			${'e'}  | ${5}
 		`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ letter: 'a', index: '1' },
 		`matches { letter: 'a', index: '1' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ letter: 'b', index: 2 },
 		`matches { letter: 'b', index: 2 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ letter: 'c', index: '3' },
 		`matches { letter: 'c', index: '3' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ letter: 'd', index: 4 },
 		`matches { letter: 'd', index: 4 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ letter: 'e', index: 5 },
 		`matches { letter: 'e', index: 5 }`,
 	);
-
-	t.end();
 });
 
-test('default - does not need to start with a newline', (t) => {
+test('default - does not need to start with a newline', () => {
 	const table = tag`	foo    | bar    | baz    | qux
 	                    ${'a'} | ${'b'} | ${'c'} | ${'d'}
 	                 `;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 1, 'has 1 item');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 1, 'has 1 item');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ foo: 'a', bar: 'b', baz: 'c', qux: 'd' },
 		`matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`,
 	);
-
-	t.end();
 });
 
-test('default - does not need to end with a newline', (t) => {
+test('default - does not need to end with a newline', () => {
 	const table = tag`
 	              foo    | bar    | baz    | qux
 	              ${'a'} | ${'b'} | ${'c'} | ${'d'}`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 1, 'has 1 item');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 1, 'has 1 item');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ foo: 'a', bar: 'b', baz: 'c', qux: 'd' },
 		`matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`,
 	);
-
-	t.end();
 });
 
-test('default - does not need to start nor end with a newline', (t) => {
+test('default - does not need to start nor end with a newline', () => {
 	const table = tag`	foo    | bar    | baz    | qux
 	                    ${'a'} | ${'b'} | ${'c'} | ${'d'}`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 1, 'has 1 item');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 1, 'has 1 item');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ foo: 'a', bar: 'b', baz: 'c', qux: 'd' },
 		`matches { foo: 'a', bar: 'b', baz: 'c', qux: 'd' }`,
 	);
-
-	t.end();
 });
 
-test('default - treats empty cells as undefined, empty rows are ignored', (t) => {
+test('default - treats empty cells as undefined, empty rows are ignored', () => {
 	const und = ((u) => u)();
 	const table = tag`
 			foo | bar | baz | qux
@@ -292,39 +275,37 @@ test('default - treats empty cells as undefined, empty rows are ignored', (t) =>
 				|     |
 				|`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 5, 'has 5 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 5, 'has 5 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ foo: und, bar: '2', baz: '3', qux: '4' },
 		`matches { foo: undefined, bar: '2', baz: '3', qux: '4' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ foo: '1', bar: und, baz: '3', qux: '4' },
 		`matches { foo: '1', bar: undefined, baz: '3', qux: '4' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ foo: '1', bar: '2', baz: und, qux: '4' },
 		`matches { foo: '1', bar: '2', baz: undefined, qux: '4' }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ foo: '1', bar: '2', baz: '3', qux: und },
 		`matches { foo: '1', bar: '2', baz: '3', qux: undefined }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ foo: '1', bar: '2', baz: '3', qux: '4' },
 		`matches { foo: '1', bar: '2', baz: '3', qux: '4' }`,
 	);
-
-	t.end();
 });
 
-test('empty - treats empty cells as undefined, preserves empty rows', (t) => {
+test('empty - treats empty cells as undefined, preserves empty rows', () => {
 	const und = ((u) => u)();
 	const table = tag.empty`
 			foo  | bar  | baz | qux
@@ -337,54 +318,52 @@ test('empty - treats empty cells as undefined, preserves empty rows', (t) => {
 				 |      |
 				 |`;
 
-	t.true(Array.isArray(table), 'is an array');
-	t.equal(table.length, 8, 'has 8 items');
+	assert.ok(Array.isArray(table), 'is an array');
+	assert.equal(table.length, 8, 'has 8 items');
 
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[0],
 		{ foo: und, bar: 2, baz: 3, qux: 4 },
 		`matches { foo: undefined, bar: 2, baz: 3, qux: 4 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[1],
 		{ foo: 1, bar: und, baz: 3, qux: 4 },
 		`matches { foo: 1, bar: undefined, baz: 3, qux: 4 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[2],
 		{ foo: 1, bar: 2, baz: und, qux: 4 },
 		`matches { foo: 1, bar: 2, baz: undefined, qux: 4 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[3],
 		{ foo: 1, bar: 2, baz: 3, qux: und },
 		`matches { foo: 1, bar: 2, baz: 3, qux: undefined }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[4],
 		{ foo: 1, bar: 2, baz: 3, qux: 4 },
 		`matches { foo: 1, bar: 2, baz: 3, qux: 4 }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[5],
 		{ foo: und, bar: und, baz: und, qux: und },
 		`matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[6],
 		{ foo: und, bar: und, baz: und, qux: und },
 		`matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`,
 	);
-	t.deepEqual(
+	assert.deepStrictEqual(
 		table[7],
 		{ foo: und, bar: und, baz: und, qux: und },
 		`matches { foo: undefined, bar: undefined, baz: undefined, qux: undefined }`,
 	);
-
-	t.end();
 });
 
-test('default - preserves types as provided', (t) => {
+test('default - preserves types as provided', () => {
 	const array = [1, 2, 3];
 	const object = { hello: 'world' };
 	const date = new Date();
@@ -399,13 +378,41 @@ test('default - preserves types as provided', (t) => {
 
 	types.forEach((input, index) => {
 		const { description, value } = table[index];
-		t.strictEqual(value, input, String(description));
+		assert.strictEqual(value, input, String(description));
 	});
-
-	t.end();
 });
 
-test('map - casts values', (t) => {
+test('default - distinguishes negative zero from zero', () => {
+	const [negative] = tag`
+			value
+			-----
+			${-0}
+		`;
+	const [positive] = tag`
+			value
+			-----
+			${0}
+		`;
+
+	assert.ok(Object.is(negative.value, -0), 'keeps -0');
+	assert.ok(Object.is(positive.value, 0), 'does not turn 0 into -0');
+});
+
+test('default - interpolated syntax characters are values', () => {
+	const [row] = tag`
+			value | description
+			------|------------
+			${'|'} | pipe
+		`;
+
+	assert.deepStrictEqual(
+		row,
+		{ value: '|', description: 'pipe' },
+		'does not treat an interpolated pipe as a delimiter',
+	);
+});
+
+test('map - casts values', () => {
 	const map = Table.mapper<{ foo: number; bar: boolean; baz: Array<string> }>(
 		{
 			foo: Number,
@@ -424,12 +431,10 @@ test('map - casts values', (t) => {
 		{ foo: 2, bar: false, baz: ['0'] },
 	];
 
-	t.deepEqual(records, expected, 'maps every record');
-
-	t.end();
+	assert.deepStrictEqual(records, expected, 'maps every record');
 });
 
-test('create - no filters', (t) => {
+test('create - no filters', () => {
 	const all = Table.create();
 	const table = all`
 		one | two
@@ -440,18 +445,16 @@ test('create - no filters', (t) => {
 		1   | 2
 	`;
 
-	t.equal(table.length, 6, 'has 6 items');
-	t.deepEqual(table[0], { one: '----', two: '-----' });
-	t.deepEqual(table[1], { one: undefined, two: undefined });
-	t.deepEqual(table[2], { one: '1', two: undefined });
-	t.deepEqual(table[3], { one: undefined, two: '2' });
-	t.deepEqual(table[4], { one: '1', two: '2' });
-	t.deepEqual(table[5], { one: undefined, two: undefined });
-
-	t.end();
+	assert.equal(table.length, 6, 'has 6 items');
+	assert.deepStrictEqual(table[0], { one: '----', two: '-----' });
+	assert.deepStrictEqual(table[1], { one: undefined, two: undefined });
+	assert.deepStrictEqual(table[2], { one: '1', two: undefined });
+	assert.deepStrictEqual(table[3], { one: undefined, two: '2' });
+	assert.deepStrictEqual(table[4], { one: '1', two: '2' });
+	assert.deepStrictEqual(table[5], { one: undefined, two: undefined });
 });
 
-test('create - custom filter', (t) => {
+test('create - custom filter', () => {
 	const none = Table.create(() => false);
 	const table = none`
 		one | two
@@ -462,12 +465,10 @@ test('create - custom filter', (t) => {
 		1   | 2
 	`;
 
-	t.equal(table.length, 0, 'has 0 items');
-
-	t.end();
+	assert.equal(table.length, 0, 'has 0 items');
 });
 
-test('create - fourth (readme example)', (t) => {
+test('create - fourth (readme example)', () => {
 	const fourth = Table.create(
 		(...values: Array<unknown>) =>
 			Boolean(values[3]) && !/^--+$/.test(String(values[3])),
@@ -482,16 +483,14 @@ test('create - fourth (readme example)', (t) => {
 			| 2   | 3     | 4
 	`;
 
-	t.equal(table.length, 4, 'has 4 items');
-	t.deepEqual(table[0], { one: '1', two: '2', three: '3', four: '4' });
-	t.deepEqual(table[1], { one: '1', two: '2', three: undefined, four: '4' });
-	t.deepEqual(table[2], { one: '1', two: undefined, three: '3', four: '4' });
-	t.deepEqual(table[3], { one: undefined, two: '2', three: '3', four: '4' });
-
-	t.end();
+	assert.equal(table.length, 4, 'has 4 items');
+	assert.deepStrictEqual(table[0], { one: '1', two: '2', three: '3', four: '4' });
+	assert.deepStrictEqual(table[1], { one: '1', two: '2', three: undefined, four: '4' });
+	assert.deepStrictEqual(table[2], { one: '1', two: undefined, three: '3', four: '4' });
+	assert.deepStrictEqual(table[3], { one: undefined, two: '2', three: '3', four: '4' });
 });
 
-test('mapper - readme example', (t) => {
+test('mapper - readme example', () => {
 	const { mapper } = Table;
 	const mapping = {
 		number: (value: unknown) => (value ? Number(value) : undefined),
@@ -523,12 +522,10 @@ test('mapper - readme example', (t) => {
 		{ string: 'baz', number: 7, boolean: false, array: [] },
 	];
 
-	t.deepEqual(records, expected, 'maps the values');
-
-	t.end();
+	assert.deepStrictEqual(records, expected, 'maps the values');
 });
 
-test('parser - does not hang on escape characters', async (t) => {
+test('parser - does not hang on escape characters', async () => {
 	const expected = [
 		{ foo: '[AZ]', bar: 'B', baz: '1' },
 		{ foo: '[A Z]', bar: 'B', baz: '2' },
@@ -553,7 +550,5 @@ test('parser - does not hang on escape characters', async (t) => {
 		`,
 	]);
 
-	t.deepEqual(result, expected, 'parses the defined table');
-
-	t.end();
+	assert.deepStrictEqual(result, expected, 'parses the defined table');
 });

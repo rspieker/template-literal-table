@@ -1,4 +1,5 @@
-import test from 'tape';
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
 import { table } from '../../source';
 
 const expected = [
@@ -8,7 +9,7 @@ const expected = [
     { id: '4', name: 'Square Programming Thing', rarity: 'rare', discount: undefined },
 ];
 
-test('Style - absolute minimum', (t) => {
+test('Style - absolute minimum', () => {
     const parsed = table`
         id|name|rarity|discount
         1|Lovely \\| Ancient U-shaped Minute|common|15%
@@ -17,12 +18,10 @@ test('Style - absolute minimum', (t) => {
         4|Square Programming Thing|rare
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - minimal', (t) => {
+test('Style - minimal', () => {
     const parsed = table`
         id | name | rarity | discount
         1 | Lovely \\| Ancient U-shaped Minute | common | 15%
@@ -31,12 +30,10 @@ test('Style - minimal', (t) => {
         4 | Square Programming Thing | rare
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - lazy basic table', (t) => {
+test('Style - lazy basic table', () => {
     const parsed = table`
         id | name                               | rarity   | discount
         ---|------------------------------------|----------|----------
@@ -46,12 +43,10 @@ test('Style - lazy basic table', (t) => {
         4  | Square Programming Thing           | rare
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - basic table', (t) => {
+test('Style - basic table', () => {
     const parsed = table`
         id | name                               | rarity   | discount
         ---|------------------------------------|----------|----------
@@ -61,12 +56,10 @@ test('Style - basic table', (t) => {
         4  | Square Programming Thing           | rare     |          
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - aligned basic table', (t) => {
+test('Style - aligned basic table', () => {
     const parsed = table`
          id | name                               | rarity   | discount 
         ---:|:-----------------------------------|:--------:|---------:
@@ -76,12 +69,10 @@ test('Style - aligned basic table', (t) => {
          4  | Square Programming Thing           | rare     |          
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - basic indented table', (t) => {
+test('Style - basic indented table', () => {
     const parsed = table`
         id | name                               | rarity   | discount 
         -- | ---------------------------------- | -------- | ---------
@@ -91,12 +82,10 @@ test('Style - basic indented table', (t) => {
         4  | Square Programming Thing           | rare     |          
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - basic indented aligned table', (t) => {
+test('Style - basic indented aligned table', () => {
     const parsed = table`
         id  | name                               | rarity   | discount 
         :-: | :--------------------------------- | -------- | --------:
@@ -106,12 +95,10 @@ test('Style - basic indented aligned table', (t) => {
         4   | Square Programming Thing           | rare     |          
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - bordered basic table', (t) => {
+test('Style - bordered basic table', () => {
     const parsed = table`
         | id | name                               | rarity   | discount |
         |----|------------------------------------|----------|----------|
@@ -121,12 +108,10 @@ test('Style - bordered basic table', (t) => {
         | 4  | Square Programming Thing           | rare     |          |
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - bordered indented table', (t) => {
+test('Style - bordered indented table', () => {
     const parsed = table`
         | id | name                               | rarity   | discount  |
         | -- | ---------------------------------- | -------- | --------- |
@@ -136,12 +121,10 @@ test('Style - bordered indented table', (t) => {
         | 4  | Square Programming Thing           | rare     |           |
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - bordered aligned table', (t) => {
+test('Style - bordered aligned table', () => {
     const parsed = table`
         | id | name                               | rarity   | discount |
         |:--:|:-----------------------------------|----------|---------:|
@@ -151,12 +134,10 @@ test('Style - bordered aligned table', (t) => {
         | 4  | Square Programming Thing           | rare     |          |
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
 
-test('Style - bordered indented aligned table', (t) => {
+test('Style - bordered indented aligned table', () => {
     const parsed = table`
         | id  | name                               | rarity   | discount |
         | :-: | :--------------------------------- | -------- | -------: |
@@ -166,7 +147,5 @@ test('Style - bordered indented aligned table', (t) => {
         | 4   | Square Programming Thing           | rare     |          |
     `;
 
-    t.deepEqual(parsed, expected, 'interprets correctly');
-
-    t.end();
+    assert.deepStrictEqual(parsed, expected, 'interprets correctly');
 });
